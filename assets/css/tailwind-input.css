@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tailwind CSS Customization */
+@layer components {
+    #htmx-spinner-overlay {
+        @apply hidden;
+    }
+    #htmx-spinner-overlay.htmx-request {
+        @apply flex;
+    }
+}
+
+.highlight {
+    border-color: blue;
+    background-color: rgba(0, 0, 255, 0.1);
+}

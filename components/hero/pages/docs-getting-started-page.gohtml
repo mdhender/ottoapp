@@ -1,0 +1,104 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc. All rights reserved.
+     You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}
+<div class="bg-white px-6 py-32 lg:px-8">
+    <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+        <p class="text-base font-semibold leading-7 text-indigo-600">
+            Documentation
+        </p>
+
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Getting Started
+        </h1>
+
+        <p class="mt-6 text-xl leading-8">
+            OttoMap is a tool for TribeNet players to visualize their TribeNet maps.
+            It reads your TribeNet turn reports and generates a Worldographer map that you can view on your
+            computer.
+        </p>
+
+        <div class="mt-10 max-w-2xl">
+            <p class="mt-8">
+                You should have received an email or DM with your account information and a link to your login page.
+                You will need both to get started.
+            </p>
+            <p class="mt-8">
+                Open the link in your login page in your browser.
+                You should see the login screen with your account name filled in.
+            </p>
+            <figure class="mt-16">
+                <img class="aspect-video rounded-xl bg-gray-50 object-cover" style="border: #6366f1 1px solid;"
+                     src="/img/login-page.png"
+                     alt="login page example">
+                <figcaption class="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
+                    <svg class="mt-0.5 h-5 w-5 flex-none text-gray-300" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    Login page for Clan 0987
+                </figcaption>
+            </figure>
+            <p class="mt-8">
+                Note: the "@ottomap" in your account name is required;
+                it tells the web server that you are authenticating with OttoMap.
+                (In the future, this will be configurable.)
+            </p>
+            <p class="mt-8">
+                Enter your password and click the "Sign in" button.
+            </p>
+            <p class="mt-8">
+                You should now be logged in and viewing your dashboard.
+                If not, please contact me on the Discord server.
+            </p>
+            <figure class="mt-16">
+                <img class="aspect-video rounded-xl bg-gray-50 object-cover" style="border: #6366f1 1px solid;"
+                     src="/img/dashboard-empty-page.png"
+                     alt="initial dashboard page">
+                <figcaption class="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
+                    <svg class="mt-0.5 h-5 w-5 flex-none text-gray-300" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    Initial Dashboard for Clan 0987
+                </figcaption>
+            </figure>
+            <p class="mt-8">
+                You can bookmark this page for easy access.
+            </p>
+            <p class="mt-8">
+                You're now ready to upload your turn reports.
+                If you've already saved your turn reports to a file, you can click the "Add reports" button to upload them.
+                If you haven't, already, please review the steps in the
+                <a href="/docs/converting-turn-reports" class="text-indigo-600 hover:text-indigo-500">
+                    Converting Turn Reports
+                </a>
+                document.
+            </p>
+            <p class="mt-8">
+                For information on the Dashboard page, please see the
+                <a href="/docs/dashboard-overview" class="text-indigo-600 hover:text-indigo-500">
+                    Dashboard overview
+                </a>
+                page.
+            </p>
+            <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+                Logging out
+            </h2>
+            <p class="mt-6">
+                OttoMap uses a cookie to remember your login, so you will not need to login again until your session expires, which is 2 weeks.
+                You can logout at any time by navigating to the
+                <a href="/logout" class="text-indigo-600 hover:text-indigo-500">
+                    Logout
+                </a>
+                page.
+            </p>
+        </div>
+    </div>
+</div>
+{{end}}

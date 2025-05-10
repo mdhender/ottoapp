@@ -1,0 +1,269 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc.
+     All rights reserved. You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/reports/uploads/msword.Content_t*/ -}}
+<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <form action="/api/v1/report/upload/docx" method="POST" hx-encoding="multipart/form-data" enctype="multipart/form-data">
+        <div class="space-y-12">
+            <div class="border-b border-gray-900/10 pb-12">
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Upload turn reports</h2>
+                <p class="mt-1 text-sm leading-6 text-gray-600">
+                    Use this form to upload your turn report (the original Microsoft Word document works best).
+                </p>
+
+                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="col-span-full">
+                        <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Turn report</label>
+                        <div id="drop_zone"
+                             class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                            <div class="text-center">
+                                <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                    <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" />
+                                </svg>
+                                <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                                    <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                        <span>Upload a report file</span>
+                                        <input type="file" accept=".docx" onchange="onGetFile(this)"
+                                               id="file-upload" name="file-upload"
+                                               class="sr-only"><!-- onchange="onGetFile(this)" -->
+                                    </label>
+                                    <p class="pl-1">or drag and drop</p>
+                                </div>
+                                <p class="text-xs leading-5 text-gray-600">Word document (.DOCX) up to 1MB</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-b border-gray-900/10 pb-12">
+                <div class="mt-10 space-y-10">
+                    <fieldset>
+                        <legend class="text-sm font-semibold leading-6 text-gray-900">Filters</legend>
+                        <div class="mt-6 space-y-6">
+                            <div class="relative flex gap-x-3">
+                                <div class="flex h-6 items-center">
+                                    <input id="sensitive-data" name="sensitive-data" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" checked>
+                                </div>
+                                <div class="text-sm leading-6">
+                                    <label for="sensitive-data" class="font-medium text-gray-900">Sensitive data</label>
+                                    <p class="text-gray-500">
+                                        Turn reports contain a lot of information that is not needed to create a map.
+                                        <br>
+                                        When checked, lines that are not related to location, movement, and scouting will be removed from the file.
+                                        Remember, though, that error messages will refer to the lines in this smaller file, not your original file.
+                                    </p>
+                                    <p class="text-gray-500">
+                                        <strong>EXPERIMENTAL</strong>: this feature is experimental and may not work as expected.
+                                        Please report any issues you find when using this feature.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="relative flex gap-x-3">
+                                <div class="flex h-6 items-center">
+                                    <input id="smart-quotes" name="smart-quotes" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                </div>
+                                <div class="text-sm leading-6">
+                                    <label for="smart-quotes" class="font-medium text-gray-900">Smart quotes</label>
+                                    <p class="text-gray-500">
+                                        Changes "smart quotes" in your documents to straight quotes.
+                                    </p>
+                                    <p class="text-gray-500">
+                                        <strong>EXPERIMENTAL</strong>: this feature is experimental and may not work as expected.
+                                        Please report any issues you find when using this feature.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="relative flex gap-x-3">
+                                <div class="flex h-6 items-center">
+                                    <input id="invalid-characters" name="invalid-characters" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                </div>
+                                <div class="text-sm leading-6">
+                                    <label for="invalid-characters" class="font-medium text-gray-900">Invalid characters</label>
+                                    <p class="text-gray-500">
+                                        Word files can contain unexpected characters that can cause errors when processing the file.
+                                        <br>
+                                        When checked, these characters will be removed from the file.
+                                        If you're not sure, leave this option unchecked.
+                                    </p>
+                                    <p class="text-gray-500">
+                                        <strong>EXPERIMENTAL</strong>: this feature is experimental and may not work as expected.
+                                        Please report any issues you find when using this feature.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+            <a href="/dashboard" class="text-sm font-semibold leading-6 text-gray-900">Cancel</a>
+            <button type="button" id="file-upload-button"
+                    hx-post="/reports/uploads/msword" hx-trigger="click" hx-target="#notifications-panel"
+                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                Upload
+            </button>
+        </div>
+    </form>
+
+    <div class="relative">
+        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+            <div class="w-full border-t border-gray-300"></div>
+        </div>
+        <div class="relative flex justify-center">
+            <span class="bg-white px-2 text-sm text-gray-500">Text to Upload</span>
+        </div>
+    </div>
+
+    <!-- parsed content will go here -->
+    <div class="min-w-0 flex-1">
+        <div id="docx-content"></div>
+    </div>
+    <!-- hidden element to hold the parsed document -->
+    <input type="hidden" id="docx-input" name="docx-input">
+</div>
+
+
+<script>
+    // Get the drop zone and file input elements
+    const dropZoneId = "drop_zone";
+    const fileInputId = "file-upload";
+    const dropZone = document.getElementById(dropZoneId);
+    const fileInput = document.getElementById(fileInputId);
+    const targetContentId = "docx-content";
+    const targetInputId = "docx-input";
+
+    // Prevent default behaviors for drag-and-drop events
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    // Add highlighting effect when a file is dragged over the drop zone
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => dropZone.classList.add('highlight'), false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => dropZone.classList.remove('highlight'), false);
+    });
+
+    // Handle the file drop event
+    dropZone.addEventListener('drop', handleDrop, false);
+
+    function onGetFile(el) {
+        var file = el.files[0]
+
+        docx.renderAsync(file, document.getElementById(targetContentId), null, {
+            inWrapper: true, // was false
+            ignoreWidth: true,
+            ignoreHeight: true
+        })
+            .then(x => {
+                // // after rendering, place the output directly into the hidden input field
+                // //const content = document.getElementById(targetInputId);
+                // serializeDivContent();
+                //
+                document.getElementById("file-upload-button").scrollIntoView({
+                    behavior: 'smooth', // This makes the scroll smooth
+                    block: 'start'      // Aligns it to the top of the visible area
+                });
+                //
+                // console.log("docx: parse and render finished (onGetFile)");
+            });
+    }
+
+    function serializeDivContent() {
+        const inputElement = document.getElementById(targetInputId);
+
+        // Get the contents of the DIV and store it in the value of the hidden input
+        inputElement.value = document.getElementById(targetContentId).innerHTML;
+        console.log("docx: length of content: " + inputElement.value.length);
+
+        console.log("docx: serialize finished");
+    }
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+
+        // do nothing if no files were dropped
+        if (files.length === 0) {
+            return;
+        } else if (files.length > 1) {
+            alert('Only one file can be dropped at a time');
+            return;
+        }
+        console.log("docx: drop event");
+        console.log(files);
+
+        const file = files[0];
+
+        // Basic file validation (size and type)
+        if (file.size > 1048576) {
+            alert('File size must be less than 1MB');
+            return;
+        }
+        console.log("docx: file size okay");
+
+        // pretty simple
+        console.log(fileInput);
+        fileInput.files = files;
+        console.log(fileInput);
+        console.log("docx: file dropped into file input");
+
+        console.log("docx: targetContentId: '" + targetContentId + "'");
+        docx.renderAsync(file, document.getElementById(targetContentId), null, {
+            inWrapper: true, // was false
+            ignoreWidth: true,
+            ignoreHeight: true
+        })
+            .then(x => {
+                // after rendering, place the output directly into the hidden input field
+                //const content = document.getElementById(targetInputId);
+                serializeDivContent();
+
+                document.getElementById("file-upload-button").scrollIntoView({
+                    behavior: 'smooth', // This makes the scroll smooth
+                    block: 'start'      // Aligns it to the top of the visible area
+                });
+
+                console.log("docx: parse and render finished");
+            });
+
+        // // Get the value of the checkbox (true or false based on whether it’s checked)
+        // const invalidCharacters = document.querySelector('input[name="invalid-characters"]');
+        // const sensitiveData = document.querySelector('input[name="sensitive-data"]');
+        // const smartQuotes = document.querySelector('input[name="smart-quotes"]');
+
+        // // Prepare the file for upload
+        // const formData = new FormData();
+        // formData.append('file-upload', file);
+        // formData.append('sensitive-data', sensitiveData.checked ? 'true' : 'false');
+        // formData.append('smart-quotes', smartQuotes.checked ? 'true' : 'false');
+        //
+        // // automatically upload the file using Fetch API
+        // fetch('/api/v1/report/upload/docx', {
+        //     method: 'POST',
+        //     body: formData
+        // })
+        //     .then(response => response.json())  // Adjust as per your server response
+        //     .then(data => {
+        //         alert(`File "${file.name}" uploaded successfully!`);
+        //         // Handle success (e.g., display success message, redirect, etc.)
+        //         window.location.href = `/reports/uploads/msword`;
+        //     })
+        //     .catch(error => {
+        //         console.error('Error uploading file:', error);
+        //         alert('Failed to upload the file.');
+        //     });
+    }
+</script>
+{{end}}

@@ -1,0 +1,18 @@
+[Unit]
+Description=Otto Web server
+StartLimitIntervalSec=0
+After=network-online.target
+
+[Service]
+Type=simple
+User=ottoweb
+Group=ottoweb
+PIDFile=/run/ottoweb.pid
+WorkingDirectory=/var/www/ottomap.mdhenderson.com
+ExecStart=/var/www/ottomap.mdhenderson.com/bin/ottoweb serve --database /home/ottoweb/data/ottoweb.db
+ExecReload=/bin/kill -USR1 $MAINPID
+Restart=on-failure
+RestartSec=13
+
+[Install]
+WantedBy=multi-user.target

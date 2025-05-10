@@ -1,0 +1,35 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc.
+     All rights reserved. You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/dashboard.Content*/ -}}
+<div class="px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+            <h1 class="text-base font-semibold leading-6 text-gray-900">Turns</h1>
+            <p class="mt-2 text-sm text-gray-700">
+                The list below includes all the files in your account, sorted by turn.
+                Each turn includes links to the report and any log, error, or map files that were generated.
+            </p>
+        </div>
+        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+            <a href="/reports/uploads"
+               class="mt-8 block rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mt-10">
+                Add reports
+            </a>
+        </div>
+    </div>
+
+    <br>
+
+    <nav class="h-full overflow-y-auto" aria-label="Directory">
+        {{range .Turns}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/dashboard.TurnFiles_t*/ -}}
+        {{template "turn-files" .}}
+        {{end}}
+    </nav>
+
+</div>
+
+<br>
+
+{{end}}

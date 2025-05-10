@@ -1,0 +1,369 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc. All rights reserved.
+     You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}
+<div class="bg-white px-6 py-32 lg:px-8">
+    <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+        <p class="text-base font-semibold leading-7 text-indigo-600">
+            Documentation
+        </p>
+
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Error Handling
+        </h1>
+
+        <p class="mt-6 text-xl leading-8">
+            Sometimes things go wrong.
+            This page describes how to resolve errors that may occur when using OttoMap.
+        </p>
+
+        <div class="mt-10 max-w-2xl">
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-4">
+                Work In Progress
+            </h2>
+
+            <p class="mt-6">
+                This page is a copy+paste of the errors document from the OttoMap repository.
+                It needs to be updated and formatted.
+                Please feel free to comment on this in the #mapping-tools channel on the TribeNet Discord server.
+            </p>
+
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-4">Error Files</h2>
+
+            <p class="mt-6">
+                If there are no issues parsing a report file, the server will create a log file.
+                The file will be given the same prefix as the report file (YYYY-MM.CLAN), but with the extension <code>.log</code>.
+            </p>
+
+            <p class="mt-6">
+                If there are any errors parsing a report file, the server will create an error file.
+                The file will be given the same prefix as the report file (YYYY-MM.CLAN), but with the extension <code>.err</code>.
+            </p>
+
+            <p class="mt-6">
+                You may have to update the text file copies of your report files.
+            </p>
+
+            <p class="mt-6">
+                If you don’t understand what needs to be fixed, please ask for help on the TribeNet Discord’s <code>#mapping</code> channel.
+            </p>
+
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-4">Common Errors</h2>
+
+            <h3 id="unexpected-settlement-name" class="text-xl font-bold tracking-tight text-gray-900 mb-6 leading-relaxed group">
+                Random text at the bottom of a hex
+            </h3>
+
+            <p class="mt-6">
+                Sometimes you will see something like "Ford S SE 0987g1" at the bottom of a hex.
+                It might be the combination of terrain with a unit or maybe a resource.
+                This happens when OttoMap can't parse a step in a move or status line.
+                It assumes that the unparseable text is the name of a settlement and displays it at the bottom of the hex.
+            </p>
+
+            <p class="mt-6">
+                The fix is to find and update the step.
+                Start by searching the turn report for the line that contains the hex you are looking at.
+                In this case, you would search for "Ford S SE 0987g1."
+                That line looks like this:
+            </p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+0987e1 Status: PRAIRIE, ,,Ford S SE 0987g1
+</pre>
+
+            <p class="mt-6">
+                The problem is there needs to be a comma just before the garrison unit.
+            </p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+0987e1 Status: PRAIRIE, ,,Ford S SE,0987g1
+</pre>
+
+            <h3 id="units-forbidden" class="text-xl font-bold tracking-tight text-gray-900 mb-6 leading-relaxed group">
+                Units forbidden at the beginning of step
+            </h3>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+0899-12.0987: 0987: 13: SW-PR \ 1987g1\ No Ford on River to SW of HEX, nothing of interest found
+0899-12.0987: 0987: 13: units forbidden at beginning of step
+</pre>
+
+            <p class="mt-6">Line 13 of this turn report contains:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+SW-PR \ 1987g1\ No Ford on River to SW of HEX, nothing of interest found
+</pre>
+
+            <p class="mt-6">
+                The problem is the backslash just before the garrison unit.
+                It must be changed to a comma:
+            </p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+SW-PR , 1987g1\ No Ford on River to SW of HEX, nothing of interest found
+</pre>
+
+            <p class="mt-6">
+                Backslashes separate steps in the move while commas separate the things you find after moving.
+            </p>
+
+            <h3 id="dash-prefix-on-result" class="text-xl font-bold tracking-tight text-gray-900 mb-6 leading-relaxed group">
+                Found dash prefix on result
+            </h3>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+0899-12.0987: 0987e1: 183: step 4: sub 1: "- 0987"
+error: found dash prefix on result; it must be removed
+</pre>
+
+            <p class="mt-6">The line in the turn report contains:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+Scout 3:Scout SE-PR,  \SE-RH,  \SE-PR,  River S, \- 0987\ Not enough M.P's to move to SE into ROCKY HILLS,  Patrolled and found 0190
+</pre>
+
+            <p class="mt-6">
+                The problem is that a dash ("-") was left in the turn report by mistake.
+                You must remove it.
+            </p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+Scout 3:Scout SE-PR,  \SE-RH,  \SE-PR,  River S, \ 0987\ Not enough M.P's to move to SE into ROCKY HILLS,  Patrolled and found 0190
+</pre>
+
+            <h3 id="n-a-invalid-location" class="text-xl font-bold tracking-tight text-gray-900 mb-6 leading-relaxed group">
+                Location "N/A": invalid location
+            </h3>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+0899-12: 0987  : location "N/A": invalid location
+please update the invalid locations and restart
+</pre>
+
+            <p class="mt-6">
+                This error message is telling you that unit "0987" in the turn report for 899-12 is missing the starting hex location.
+                The line in the turn report contains:
+            </p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+Tribe 0987, , Current Hex = ## 0105, (Previous Hex = N/A)
+</pre>
+
+            <p class="mt-6">
+                You must fix this by updating the location in the turn report.
+                Update that line and set the value for Previous Hex.
+                It should be changed to the hex that the unit starts the turn in (e.g. "QQ 0105").
+            </p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+Tribe 0987, , Current Hex = ## 0105, (Previous Hex = QQ 0105)
+</pre>
+
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-4">Other Errors</h2>
+
+            <p class="mt-6">When the parser encounters a line that it doesn’t recognize, it will print the report id, the input, and then an error message.</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+parse: report 0900-01.0138: unit 0138e1: parsing error
+parse: input: "0138e1 Status: PRAIRIE,,River S 0138e1"
+parse: error: status:1:24 (23): no match found, expected: [ \t] or [0-9]
+</pre>
+
+            <p class="mt-6">The report id should help you locate the file that needs to be fixed.
+                (Please update the <code>.txt</code> copy of the file; the original <code>.docx</code> is not used by this application.)</p>
+
+            <p class="mt-6">If the unit id is available, it will also be displayed to help you find the section of the report that needs to be fixed.</p>
+
+            <p class="mt-6">The line shows the input from that report file.</p>
+
+            <p class="mt-6">The error message shows the section being parsed, the line number, the column number, and the parser’s best guess at what the problem is.</p>
+
+            <p class="mt-6">Note that the line number is always 1 because of the way the application looks at the input.</p>
+
+            <p class="mt-6">The column number shows you where the error happened. (It’s usually pretty close, anyway.) Use that to help figure out what to fix.</p>
+
+            <p class="mt-6">
+                After you’ve made your update (again, please don’t update your original <code>.docx</code> report file), you must upload the new file to the server.
+                The server will re-parse the file and update the map.
+            </p>
+
+            <blockquote>
+                <p class="mt-6">NOTE: I’m trying to get all the error messages to be consistent. If you notice one that’s wonky, please report it.</p>
+            </blockquote>
+
+            <h3 class="text-xl font-bold tracking-tight text-gray-900 mb-6 leading-relaxed">Expected Turn YYYY-MM</h3>
+
+            <p class="mt-6">The parser tries to match the year and month from the file name with the year and month from the first line in the turn report. If there’s a mismatch, it will report an error and exit.</p>
+
+            <p class="mt-6">If the error mentions turn "0000-00":</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+render.go:219: error: expected turn "0901-10": got turn "0000-00"
+</pre>
+
+            <p class="mt-6">Then the issue is probably with the line endings in the file. Please try running with the <code>--auto-eol</code> option. If that doesn’t resolve this issue, please report it on the Discord server.</p>
+
+            <h3 class="text-xl font-bold tracking-tight text-gray-900 mb-6 leading-relaxed">Expected unit to have parent</h3>
+
+            <p class="mt-6">You will get an error when Otto can’t determine which hex a unit was created in.</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+10:30:18 walk.go:60: 0901-04: 0138  : parent "0138": missing
+10:30:18 walk.go:61: error: expected unit to have parent
+</pre>
+
+            <p class="mt-6">This happens when Otto can’t determine the starting hex for the clan. It should happen only with the first turn’s report and only when the grid is obscured (meaning it starts with "##").</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+Tribe 0138, , Current Hex = ## 1304, (Previous Hex = ## 1304)
+</pre>
+
+            <p class="mt-6">The fix is to update the report and add a grid id.</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+Tribe 0138, , Current Hex = KK 1304, (Previous Hex = KK 1304)
+</pre>
+
+            <blockquote>
+                <p class="mt-6">NOTE: If you don’t know which grid you’re starting in, put in something like "KK." You can update it later when you know the starting grid.</p>
+            </blockquote>
+
+            <p class="mt-6">Otto uses the starting location (the clan’s origin) to plot out all the moves that units makes, that’s why it needs an un-obscured location to begin mapping.</p>
+
+            <h3 class="text-xl font-bold tracking-tight text-gray-900 mb-6 leading-relaxed">No movement results found</h3>
+
+            <p class="mt-6">If you run <code>ottomap map</code> and it ends with a line like <code>map: no movement results found</code>, the likely cause is a copy+paste error with the report file.</p>
+
+            <p class="mt-6">Check that the first line of the report file starts with <code>Tribe 0nnn</code> where <code>0nnn</code> is your clan number.</p>
+
+            <p class="mt-6">If it does, it might be that your text editor is saving <a href="https://en.wikipedia.org/wiki/Byte_order_mark">BOM</a> bytes to the file. Please try running with the <code>--skip-bom</code> flag.</p>
+
+            <p class="mt-6">If that doesn’t work, please report the error on the <code>#mapping-tools</code> channel of the Discord server.</p>
+
+            <h3 class="text-xl font-bold tracking-tight text-gray-900 mb-6 leading-relaxed">Backslashes</h3>
+
+            <p class="mt-6">The report uses backslashes ("\") as movement step separators. When we report an error, you’ll see two backslashes. That’s because backslashes are special to the <code>printf</code> statement, so it doubles them on output.</p>
+
+            <p class="mt-6">If you see:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+"Scout 1:Scout SE-RH, River SE S SW\\NE-PR, River S\\ not enough M.P’s to move to SE into PRAIRIE, nothing of interest found"
+</pre>
+
+            <p class="mt-6">The line in the report is actually:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+Scout 1:Scout SE-RH, River SE S SW\NE-PR, River S\ not enough M.P’s to move to SE into PRAIRIE, nothing of interest found
+</pre>
+
+            <h3 class="text-xl font-bold tracking-tight text-gray-900 mb-6 leading-relaxed">Scout lines</h3>
+
+            <p class="mt-6">Sometimes a backslash should actually be a comma. If you have an error like this:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+parse: section: scout 1: "Scout 1:Scout SE-RH, River SE S SW\\NE-PR, River S\\SE-PR, River SE S SW\\ 1540\\NE-PR, River S\\ not enough M.P’s to move to SE into PRAIRIE, nothing of interest found"
+parse: report 0900-01.0138: unit 0138e1: parsing error
+parse: input: "1540"
+parse: error: scout:1:1 (0): no match found, expected: "Can't Move on", "N", "NE", "NW", "No Ford on River to", "Not enough M.P’s to move to", "S", "SE" or "SW"
+</pre>
+
+            <p class="mt-6">The fix is to replace the backslash with a comma:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+Scout 1:Scout SE-RH, River SE S SW\NE-PR, River S\SE-PR, River SE S SW, 1540\NE-PR, River S\ not enough M.P’s to move to SE into PRAIRIE, nothing of interest found
+</pre>
+
+            <p class="mt-6">Sometimes there are extra characters in the input. This is due to the GMs making a typo when updating your turn report. They do a lot of work to make it presentable and sometimes make an honest mistake.</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+parse: section: scout 1: "Scout 1:Scout SW-PR,  \\SW-PR,  \\-,  1138e1\\SW-CH,  \\SW-PR,  O SW,  NW\\ Not enough M.P’s to move to S into PRAIRIE,  Nothing of interest found"
+parse: report 0900-03.0138: unit 2138e1: parsing error
+parse: input: "-,  1138e1"
+parse: error: scout:1:1 (0): no match found, expected: "N", "NE", "NW", "S", "SE", "SW", [Cc] or [Nn]
+</pre>
+
+            <p class="mt-6">The fix is to remove those characters:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+Scout 1:Scout SW-PR,  \SW-PR,    1138e1\SW-CH,  \SW-PR,  O SW,  NW\ Not enough M.P’s to move to S into PRAIRIE,  Nothing of interest found
+</pre>
+
+            <blockquote>
+                <p class="mt-6">You may want to confer with the GM to find out what the line should actually have been.</p>
+            </blockquote>
+
+            <p class="mt-6">You may see a line start with <code>Scout ,</code> instead of just <code>Scout</code>:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+parse: section: scout "Scout 1:Scout , Can't Move on Ocean to N of HEX,  Patrolled and found 2138e1"
+parse: section: scout ", Can't Move on Ocean to N of HEX,  Patrolled and found 2138e1"
+parse: section: scout 1: "Scout 1:Scout , Can't Move on Ocean to N of HEX,  Patrolled and found 2138e1"
+parse: report 0900-04.0138: unit 1138e1: parsing error
+parse: input: ", Can't Move on Ocean to N of HEX,  Patrolled and found 2138e1"
+parse: error: scout:1:1 (0): no match found, expected: "N", "NE", "NW", "S", "SE", "SW", [Cc] or [Nn]
+</pre>
+
+            <p class="mt-6">In that case, just remove the comma:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+Scout 1:Scout Can’t Move on Ocean to N of HEX, Patrolled and found 2138e1
+</pre>
+
+            <h3 class="text-xl font-bold tracking-tight text-gray-900 mb-6 leading-relaxed">Status lines</h3>
+
+            <p class="mt-6">Sometimes there are extra commas in the status line. If you have an error like this:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+parse: report 0900-01.0138: unit 0138e1: parsing error
+parse: input: "0138e1 Status: PRAIRIE,,River S 0138e1"
+parse: error: status:1:24 (23): no match found, expected: [ \t] or [0-9]
+</pre>
+
+            <p class="mt-6">Please remove the extra comma:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+0138e1 Status: PRAIRIE,River S 0138e1
+</pre>
+
+            <p class="mt-6">Sometimes there is a missing comma that should follow River, Ford, or Pass directions.</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+parse: report 0900-01.0138: unit 0138e1: parsing error
+parse: input: "0138e1 Status: PRAIRIE,,River S 0138e1"
+parse: error: status:1:33 (32): no match found, expected: ",", "N", "NE", "NW", "S", "SE", "SW", [ \t] or EOF
+</pre>
+
+            <p class="mt-6">Please insert the comma after the list of directions:</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+0138e1 Status: PRAIRIE,River S, 0138e1
+</pre>
+
+            <h3 class="text-xl font-bold tracking-tight text-gray-900 mb-6 leading-relaxed">Hexes don’t align</h3>
+
+            <p class="mt-6">Otto steps through every move a unit makes in the turn and calculates the location of each hex. At the end of the move, Otto compares the calculated hex with the "Current Hex" from the turn report. If the two don’t match, Otto reports this error.</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+10:40:00 render.go:292: error: 0901-04: 0138 : to "KK 1305"
+10:40:00 render.go:293: : 0901-05: 0138 : from "KK 1304"
+10:40:00 render.go:300: links: 5 good, 1 bad
+10:40:00 render.go:303: sorry: the previous and current hexes don’t align in some reports
+10:40:00 render.go:304: please report this error
+</pre>
+
+            <p class="mt-6">This happens only when the location line from the report is missing the "Previous Hex" or there’s a typo in one of the locations.</p>
+
+<pre class="border border-gray-300 p-4 bg-gray-100 text-sm text-gray-800 rounded-md shadow-sm overflow-x-auto">
+Tribe 0138, , Current Hex = KK 1305, (Previous Hex = N/A)
+</pre>
+
+            <p class="mt-6">I have only seen this happen when an element was created at the end of a parent’s move. If that’s the case, you will need to update the report and fix the starting and ending hexes for the unit.</p>
+
+            <p class="mt-6">If not, please report this on the Discord server. It’s a bug that I’d like to fix.</p>
+
+        </div>
+    </div>
+</div>
+{{end}}

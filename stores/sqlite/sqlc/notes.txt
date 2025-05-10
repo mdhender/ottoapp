@@ -1,0 +1,9 @@
+-- CreateAdministrator creates the administrator user.
+--
+-- name: CreateAdministrator :exec
+INSERT INTO users (user_id, email, timezone, is_active, hashed_password, clan, last_login)
+VALUES (1, 'admin@ottomapxx', 'UTC', 1, :hashed_password, '0000', :last_login)
+ ON CONFLICT (email) DO UPDATE SET is_active       = 1,
+                                  hashed_password = ?1;
+
+

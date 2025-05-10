@@ -1,0 +1,210 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc. All rights reserved.
+     You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}
+    <div class="bg-white px-6 py-32 lg:px-8">
+        <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+            <p class="text-base font-semibold leading-7 text-indigo-600">
+                Documentation
+            </p>
+
+            <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                Map Key
+            </h1>
+
+            <img src="/img/map_key.png" alt="Map Key" class="mt-10" height="1071" width="1290">
+
+            <hr>
+
+            <p class="mt-10">
+            <ul>
+                <li>🎯 Hexes that your units have seen, but never actually entered, are marked with a large yellow X.
+                </li>
+                <li>🎯 Hexes that scouts have entered have a small S near the right edge.</li>
+                <li>🎯 The map coordinates (eg PQ 0213) are displayed in the lower left corner of each hex.</li>
+                <li>
+                    🎯 Rivers are displayed as a blue line along the hex edge.
+                    Canals are displayed as a slightly darker blue line.
+                </li>
+                <li>
+                    🎯 Your units are displayed as a black figure on the upper right edge.
+                    Other players' units are displayed as a red figure on the upper left edge.
+                    If there's only a single unit in the hex, then the unit's number is displayed.
+                    Otherwise, "clan" is displayed above the unit and the list of units is attached as a note to the
+                    figure.
+                </li>
+                <li>
+                    🎯 Settlements are displayed as a black town icon in the center of the hex.
+                    The name of the settlement is displayed along the bottom edge of the hex.
+                    NB: If the settlement name looks like "L 1234", then there's a typo in your report that you should
+                    fix.
+                </li>
+                <li>
+                    🎯 The yellow or black pillboxes connecting hexes represent passes or fords.
+                    NB: if only half a pillbox is visible, this usually means that the neighboring hex hasn't been
+                    entered.
+                </li>
+                <li>
+                    🎯 Ocean and lakes can be hard to tell apart.
+                    You can ask OttoMap to change the color of the ocean to make it easier to see.
+                </li>
+                <li>
+                    🎯 Units with wagons can't enter Swamp or Jungle Hill hexes.
+                    The report shows "Cannot Move Wagons into Swamp/Jungle Hill," which doesn't show the true terrain
+                    type. OttoMap will show a large yellow "?" in the hex until one of your units reports on the true
+                    terrain type.
+                </li>
+            </ul>
+            </p>
+
+            <hr>
+
+            <p class="mt-10">
+                Tile Mappings
+            </p>
+
+            <table class="min-w-full border">
+                <thead>
+                <tr>
+                    <th>Short Code</th>
+                    <th>Long Code</th>
+                    <th>Worldographer Terrain</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>ALPS</td>
+                    <td>Alps</td>
+                    <td>Mountains</td>
+                </tr>
+                <tr>
+                    <td>AR</td>
+                    <td>Arid Tundra</td>
+                    <td>Flat Moss</td>
+                </tr>
+                <tr>
+                    <td>BF</td>
+                    <td>Brush Flat</td>
+                    <td>Hills Shrubland</td>
+                </tr>
+                <tr>
+                    <td>BH</td>
+                    <td>Brush Hills</td>
+                    <td>Hills Shrubland</td>
+                </tr>
+                <tr>
+                    <td>CH</td>
+                    <td>Conifer Hills</td>
+                    <td>Hills Forest Evergreen</td>
+                </tr>
+                <tr>
+                    <td>D</td>
+                    <td>Deciduous Forest</td>
+                    <td>Flat Forest Deciduous Heavy</td>
+                </tr>
+                <tr>
+                    <td>DE</td>
+                    <td>Desert</td>
+                    <td>Flat Desert Sandy</td>
+                </tr>
+                <tr>
+                    <td>DH</td>
+                    <td>Deciduous Hills</td>
+                    <td>Hills Deciduous Forest</td>
+                </tr>
+                <tr>
+                    <td>GH</td>
+                    <td>Grassy Hill</td>
+                    <td>Hills Grassland</td>
+                </tr>
+                <tr>
+                    <td>GHP</td>
+                    <td>Plateau Grassy Hill</td>
+                    <td>Hills Grassy</td>
+                </tr>
+                <tr>
+                    <td>HSM</td>
+                    <td>High Snowy Mountains</td>
+                    <td>Mountain Snowcapped</td>
+                </tr>
+                <tr>
+                    <td>JG</td>
+                    <td>Jungle</td>
+                    <td>Flat Forest Jungle Heavy</td>
+                </tr>
+                <tr>
+                    <td>JH</td>
+                    <td>Jungle Hill</td>
+                    <td>Hills Forest Jungle</td>
+                </tr>
+                <tr>
+                    <td>L</td>
+                    <td>Lake</td>
+                    <td>Water Sea</td>
+                </tr>
+                <tr>
+                    <td>LCM</td>
+                    <td>Low Conifer Mountains</td>
+                    <td>Mountains Forest Evergreen</td>
+                </tr>
+                <tr>
+                    <td>LJM</td>
+                    <td>Low Jungle Mountain</td>
+                    <td>Mountain Forest Jungle</td>
+                </tr>
+                <tr>
+                    <td>LSM</td>
+                    <td>Low Snowy Mountains</td>
+                    <td>Mountains Snowcapped</td>
+                </tr>
+                <tr>
+                    <td>LVM</td>
+                    <td>Low Volcano Mountains</td>
+                    <td>Mountain Volcano Dormant</td>
+                </tr>
+                <tr>
+                    <td>O</td>
+                    <td>Ocean</td>
+                    <td>Water Ocean</td>
+                </tr>
+                <tr>
+                    <td>PI</td>
+                    <td>Polar Ice</td>
+                    <td>Mountains Glacier</td>
+                </tr>
+                <tr>
+                    <td>PPR</td>
+                    <td>Plateau Prairie</td>
+                    <td>Flat Grasslands Poor</td>
+                </tr>
+                <tr>
+                    <td>PR</td>
+                    <td>Prairie</td>
+                    <td>Flat Grazing Land</td>
+                </tr>
+                <tr>
+                    <td>RH</td>
+                    <td>Rocky Hill</td>
+                    <td>Underdark Broken Lands</td>
+                </tr>
+                <tr>
+                    <td>SH</td>
+                    <td>Snow Hill</td>
+                    <td>Flat Snowfields</td>
+                </tr>
+                <tr>
+                    <td>SW</td>
+                    <td>Swamp</td>
+                    <td>Flat Swamp</td>
+                </tr>
+                <tr>
+                    <td>TU</td>
+                    <td>Tundra</td>
+                    <td>Flat Steppe</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{end}}

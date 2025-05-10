@@ -1,0 +1,62 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc. All rights reserved.
+     You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}
+<div class="bg-white px-6 py-32 lg:px-8">
+    <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+        <p class="text-base font-semibold leading-7 text-indigo-600">
+            Documentation
+        </p>
+
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            OttoMap
+        </h1>
+
+        <p class="mt-6 text-xl leading-8">
+            OttoMap is a tool for TribeNet players to visualize their TribeNet maps.
+            It reads your TribeNet turn reports and generates a Worldographer map that you can view on your computer.
+        </p>
+
+        <div class="mt-10 max-w-2xl">
+            <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
+                <li class="flex gap-x-3">
+                    <a href="/docs/getting-started" class="text-indigo-600 hover:text-indigo-500">
+                        Getting Started
+                    </a>
+                </li>
+                <li class="flex gap-x-3">
+                    <a href="/docs/report-layout" class="text-indigo-600 hover:text-indigo-500">
+                        Report Layout
+                    </a>
+                </li>
+                <li class="flex gap-x-3">
+                    <a href="/docs/dashboard-overview" class="text-indigo-600 hover:text-indigo-500">
+                        Dashboard Overview
+                    </a>
+                </li>
+                <li class="flex gap-x-3">
+                    <a href="/docs/converting-turn-reports" class="text-indigo-600 hover:text-indigo-500">
+                        Converting Turn Reports
+                    </a>
+                </li>
+                <li class="flex gap-x-3">
+                    <a href="/docs/errors" class="text-indigo-600 hover:text-indigo-500">
+                        Error Handling
+                    </a>
+                </li>
+                <li class="flex gap-x-3">
+                    <a href="/docs/map-key" class="text-indigo-600 hover:text-indigo-500">
+                        Map Key
+                    </a>
+                </li>
+                <li class="flex gap-x-3">
+                    <a href="/docs/ottomap-for-tribenet" class="text-indigo-600 hover:text-indigo-500">
+                        OttoMap for TribeNet
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{{end}}

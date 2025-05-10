@@ -1,0 +1,16 @@
+*~
+*.dll
+*.dylib
+*.exe
+*.out
+*.so
+*.swp
+*.test
+*.tgz
+.env
+.idea/
+.vscode/
+go.work
+go.work.sum
+node_modules/
+userdata/

@@ -1,0 +1,42 @@
+{{define "mammoth"}}
+<p>
+    Install mammoth.js using npm:
+        // npm install mammoth
+</p>
+
+<input type="file" id="documentInput">
+<div id="output"></div>
+
+<script>
+    const documentInput = document.getElementById('documentInput');
+    const output = document.getElementById('output');
+
+    documentInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+
+        mammoth.convertToHtml({arrayBuffer: file})
+            .then((result) => {
+                output.innerHTML = result.value;
+            })
+            .done();
+    });
+</script>
+{{end}}
+
+{{define "docxjs"}}<!-- https://github.com/VolodymyrBaydalka/docxjs -->
+<input id="document" type="file" onchange="onGetFile(this)" accept=".docx" />
+<br>
+<div id="container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx-preview@0.1.15/dist/docx-preview.js"></script>
+<script>
+    function onGetFile(el) {
+        var file = el. files[0]
+
+        var options = { inWrapper: false, ignoreWidth: true, ignoreHeight: true } // https://github.com/VolodymyrBaydalka/docxjs#api
+        docx.renderAsync(file, document.getElementById("container"), null, options)
+            .then(x => console.log("docx: finished"));
+    }
+</script>
+{{end}}

@@ -1,0 +1,81 @@
+## Unit Header
+Diagram(
+NonTerminal('UnitID'),
+Sequence(
+  ',', Optional('UnitName', 'skip'), ','
+),
+NonTerminal('CurrentHex'),
+Sequence(
+  Terminal(','),
+  Terminal('('),
+  NonTerminal('PreviousHex'),
+  Terminal(')')
+),
+)
+
+## UnitID
+Diagram(
+  Choice(0,
+    Sequence(Terminal('Tribe'), Terminal('UnitNumber')),
+    Sequence(Terminal(' Courier'), Terminal('UnitNumber'), Terminal('c'), Terminal('digit')),
+    Sequence(Terminal(' Element'), Terminal('UnitNumber'), Terminal('e'), Terminal('digit')),
+    Sequence(Terminal(' Fleet  '), Terminal('UnitNumber'), Terminal('f'), Terminal('digit')),
+    Sequence(Terminal('Garrison'), Terminal('UnitNumber'), Terminal('g'), Terminal('digit'))
+  ),
+)
+
+## CurrentHex
+Diagram(
+  Sequence(
+    Terminal('Current Hex ='),
+    Choice(0,
+      Terminal('Grid'),
+      Terminal('##')
+    ),
+    Terminal('Hex')
+  ),
+)
+
+
+## PreviousHex
+Diagram(
+  Sequence(
+    Terminal('Previous Hex ='),
+    Choice(0,
+      Sequence(
+        Choice(0,
+          Terminal('##'),
+          Terminal('Grid')
+        ),
+        Terminal('Hex')
+      ),
+      Terminal('N/A')
+    ),
+  )
+)
+
+
+## Full Unit Header
+Diagram(
+  Choice(0,
+    Sequence('Tribe', 'UnitId'),
+    Sequence('Courier', 'UnitId', 'c', '1-9'),
+    Sequence('Element', 'UnitId', 'e', '1-9'),
+    Sequence('Fleet', 'UnitId', 'f', '1-9'),
+    Sequence('Garrison', 'UnitId', 'g', '1-9'),
+  ),
+  Sequence(
+    ',', Optional('Name', 'skip'), ','
+  ),
+  Sequence(
+    Terminal('Current Hex ='),
+    Choice(0, Terminal('Location'), Terminal('Obscured Location')),
+  ),
+  Sequence(
+    Terminal(','),
+    Terminal('('),
+    Terminal('Previous Hex ='),
+    Choice(0, Terminal('Location'), Terminal('Obscured Location'), Terminal('N/A')),
+    Terminal(')')
+  ),
+)

@@ -1,0 +1,53 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc.
+     All rights reserved. You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/reports.Content_t*/ -}}
+<p class="mt-6 text-l leading-8">
+    OttoWeb is a work in progress and the reports upload process is being improved.
+    If you like things the way they were, you can still use the original upload page.
+    If you like change and don't use drag and drop, please try the new plain text upload page.
+</p>
+
+<br>
+
+<div class="border-t border-gray-200 pb-5">
+    <h3 class="text-base font-semibold leading-6 text-gray-900">The Original</h3>
+    <p class="mt-2 max-w-4xl text-sm text-gray-500">
+        The original upload page supports both drag and drop and copy+paste for plain text files.
+        It works but it is a bit clunky.
+    </p>
+    <p class="mt-2 max-w-4xl text-sm text-gray-500">
+        Please click <a href="/reports/uploads" class="text-indigo-600 hover:text-indigo-500">here</a> to use the original upload page.
+    </p>
+</div>
+
+<div class="border-t border-gray-200 pb-5">
+    <h3 class="text-base font-semibold leading-6 text-gray-900">New Plain Text Upload (experimental)</h3>
+    <p class="mt-2 max-w-4xl text-sm text-gray-500">
+        The new plain text upload page features a text box for pasting your turn report and an "improved" workflow.
+        You have the option to "scrub" the report to fix some common errors before uploading it.
+        It does yet not support drag and drop.
+    </p>
+    <p class="mt-2 max-w-4xl text-sm text-gray-500">
+        <strong>EXPERIMENTAL</strong>.
+    </p>
+    <p class="mt-2 max-w-4xl text-sm text-gray-500">
+        Please click <a href="/reports/uploads/plain-text" class="text-indigo-600 hover:text-indigo-500">here</a> to test the updated plain text report upload page.
+    </p>
+</div>
+
+<div class="border-t border-gray-200 pb-5">
+    <h3 class="text-base font-semibold leading-6 text-gray-900">Upload Word documents (experimental)</h3>
+    <p class="mt-2 max-w-4xl text-sm text-gray-500">
+        This page implements a drag and drop control for uploading Word documents.
+    </p>
+    <p class="mt-2 max-w-4xl text-sm text-gray-500">
+        <strong>EXPERIMENTAL</strong>.
+    </p>
+    <p class="mt-2 max-w-4xl text-sm text-gray-500">
+        Please click <a href="/reports/dropbox/upload" class="text-indigo-600 hover:text-indigo-500">here</a> to test the Word document drag and drop page.
+    </p>
+</div>
+{{end}}
+

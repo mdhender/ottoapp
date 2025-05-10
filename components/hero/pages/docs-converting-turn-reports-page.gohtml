@@ -1,0 +1,200 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc. All rights reserved.
+     You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}
+    <div class="bg-white px-6 py-32 lg:px-8">
+        <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+            <p class="text-base font-semibold leading-7 text-indigo-600">
+                Documentation
+            </p>
+
+            <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                Converting Turn Reports
+            </h1>
+
+            <p class="mt-6 text-xl leading-8">
+                OttoMap can't read Word documents, so you must export your turn reports to text files.
+            </p>
+
+            <div class="mt-10 max-w-2xl">
+
+                <p class="mt-6">
+                    We recommend working with a single turn report at a time.
+                </p>
+
+                <p class="mt-6">
+                    NOTE: You must start with your first turn report file.
+                    OttoMap plots all movement starting from your tribe's first hex.
+                </p>
+                <br>
+
+                <h2 class="text-2xl font-semibold tracking-tight text-gray-900">
+                    Copy and Paste on Windows and Linux
+                </h2>
+
+                <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            Open the Turn Report (the <code>DOCX</code> file that was emailed to you).
+                        </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            Select all the text and copy it to the clipboard.
+                        </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            Open a text editor (e.g., Notepad on Windows, TextEdit on macOS, or Gedit on Linux).
+                        </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            Paste the text from the clipboard into the text editor.
+                        </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            For your first turn report, you must ensure that your Clan's first hex has a grid reference.
+                            <br>
+                            Examine the first line in the new text file.
+                            If the "Previous Hex" starts with hash marks ("##"), change then to a valid grid reference.
+                            (You can use "KK" if you're not sure which grid your clan started in).
+                        </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            Save the file with a name like <code>YYYY-MM.CLAN.report.txt</code> (e.g., "0901-02.0987.report.txt").
+                        </span>
+                    </li>
+                </ul>
+                <br>
+
+                <h2 class="text-2xl font-semibold tracking-tight text-gray-900">
+                    MacOS
+                </h2>
+
+                <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            Open the Turn Report (the <code>DOCX</code> file that was emailed to you).
+                        </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            Select <code>File > Save As...</code> from the menu.
+                        </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            Select <code>Plain Text (.txt)</code> as the File Format.
+                        </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            Click the Save button.
+                        </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            In the "File Conversion" dialog, select "Mac OS (Default)" as the Text Encoding, "LF Only" for the Ends line with, and "Left to Right" for the Document Direction.
+                        </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            Save the file with a name like <code>YYYY-MM.CLAN.report.txt</code> (e.g., "0901-02.0987.report.txt").
+                        </span>
+                    </li>
+                    <li class="flex gap-x-3">
+                        <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                             aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span>
+                            For your first turn report, you must ensure that your Clan's first hex has a grid reference.
+                            <br>
+                            Examine the first line in the new text file.
+                            If the "Previous Hex" starts with hash marks ("##"), change then to a valid grid reference.
+                            (You can use "KK" if you're not sure which grid your clan started in).
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{{end}}

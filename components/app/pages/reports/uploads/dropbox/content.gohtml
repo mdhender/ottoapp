@@ -1,0 +1,138 @@
+{{define "content"}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/reports/uploads/dropbox.Content_t*/ -}}
+<div class="mx-auto max-w-7xl sm:px-6 lg:px-8" id="report-widget">
+    <form hx-post="/reports/dropbox/scrub" hx-encoding="multipart/form-data" enctype="multipart/form-data"
+          hx-trigger="change from:input[type='file']"
+          hx-indicator="#htmx-spinner-overlay"
+          hx-target="#notifications-panel">
+        <div class="space-y-12">
+            <div class="border-b border-gray-900/10 pb-12">
+                <h2 class="text-base font-semibold leading-7 text-gray-900">Upload turn reports</h2>
+                <p class="mt-1 text-sm leading-6 text-gray-600">
+                    Drop your turn report in to the box below.
+                    You can use your original Microsoft Word document (.docx) or a plain text file (.txt).
+                </p>
+
+                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="col-span-full">
+                        <label for="drop-zone" class="block text-sm font-medium leading-6 text-gray-900">Drop Zone</label>
+                        <div id="drop-zone"
+                             class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                            <div class="text-center">
+                                <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                    <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" />
+                                </svg>
+                                <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                                    <label for="report-input" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                        <span>Select a report file</span>
+                                        <input type="file" accept=".docx .txt" id="report-file-input" name="report-file-input" class="sr-only">
+                                    </label>
+                                    <p class="pl-1">&nbsp;or drag and drop document (.DOCX or .TXT) up to 1MB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div id="htmx-spinner-overlay" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 z-50 hidden">
+        <div class="h-16 w-16 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+    </div>
+</div>
+
+<script>
+    //----------------------------------------------------------------
+    // display the parsed content code
+    const targetContentId = "report-file-content";
+
+    //----------------------------------------------------------------
+    // file input element code
+    const fileInputId = "report-file-input";
+    const fileInput = document.getElementById(fileInputId);
+
+    //----------------------------------------------------------------
+    // drag and drop code
+    const dropZoneId = "drop-zone";
+    const dropZone = document.getElementById(dropZoneId);
+
+    // Prevent default behaviors for drag-and-drop events
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    // Add highlighting effect when a file is dragged over the drop zone
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => dropZone.classList.add('highlight'), false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => dropZone.classList.remove('highlight'), false);
+    });
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('drop', (e) => {
+        const files = e.dataTransfer.files;
+        // do nothing if no files were dropped
+        if (files.length === 0) {
+            return;
+        } else if (files.length > 1) {
+            alert('Only one file can be dropped at a time');
+            return;
+        }
+        const file = files[0];
+        const fileName = file.name.toLowerCase();
+        if (!(fileName.endsWith('.docx') || fileName.endsWith('.txt'))) {
+            alert('Unsupported file type. Please drop a .docx or .txt file.');
+            return;
+        }
+        fileInput.files = files;
+        fileInput.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+</script>
+{{end}}
+
+{{define "upload-report-text"}}
+<form action="/dev/null" method="POST" enctype="multipart/form-data">
+    <div class="space-y-12">
+        <div class="border-b border-gray-900/10 pb-12">
+            <h2 class="text-base font-semibold leading-7 text-gray-900">Upload scrubbed turn report</h2>
+            <p class="mt-1 text-sm leading-6 text-gray-600">
+                Please review the scrubbed version of your turn report in to the box below.
+                The scrubber removes non-essential information that is not needed to create the map.
+                It also attempts to correct common errors in the report.
+            </p>
+            <p class="mt-1 text-sm leading-6 text-gray-600">
+                If it looks good, click the "Upload" button at the bottom of the page to upload it to the database.
+            </p>
+            <aside class="bg-emerald-50 border-l-4 border-emerald-500 text-emerald-700 text-sm p-4 my-4">
+                <p class="font-bold">
+                    Note:
+                </p>
+                <p>
+                    If you find errors, you will need to update your original turn report and resubmit it.
+                    Please post the error and what you needed to do to make it work on the Discord channel.
+                </p>
+            </aside>
+            <div class="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
+                <label for="report-text" class="block text-sm font-medium leading-6 text-gray-900">Scrubbed report</label>
+                <textarea id="report-text" name="report-text" readonly rows="{{.Rows}}" placeholder="Paste your turn report here..." class="block w-full bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">{{.Text}}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 flex items-center justify-end gap-x-6">
+        <a href="/reports/dropbox/upload" class="text-sm font-semibold leading-6 text-gray-900">Cancel</a>
+        <button type="button" id="report-upload-button"
+                hx-post="/reports/dropbox/upload" hx-trigger="click" hx-target="#notifications-panel"
+                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Upload
+        </button>
+    </div>
+</form>
+{{end}}

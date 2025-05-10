@@ -1,0 +1,11 @@
+[Unit]
+Description=Run ottomap.service.sh 30 seconds after it finishes
+
+[Timer]
+Persistent=true
+OnStartupSec=1min
+OnUnitInactiveSec=30sec
+AccuracySec=1us
+
+[Install]
+WantedBy=timers.target

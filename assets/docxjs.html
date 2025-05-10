@@ -1,0 +1,72 @@
+<!DOCTYPE html><!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DocXJs</title>
+</head>
+<!--lib uses jszip-->
+<script src="https://unpkg.com/jszip/dist/jszip.min.js"></script>
+<script src="/js/docx-preview.min.js"></script>
+<script src="/js/htmx-2.0.3.min.js"></script>
+<!-- script>
+    var docData = document Blob;
+    docx.renderAsync(docData, document.getElementById("container"))
+        .then(x => console.log("docx: finished"));
+</script -->
+<body>
+
+<p>upload a word file</p>
+<!-- input to load word file into page -->
+<input type="file" id="docxjs-file" accept=".docx" onchange="onGetFile(this)"/>
+<br>
+<hr>
+<br>
+<br>
+<!-- button to upload the parsed document to the server -->
+<button type="button" hx-post="/report/upload/docx" hx-include="#docxjs-content" hx-trigger="click" onclick="serializeDivContent()">Upload Data</button>
+<br>
+<br>
+<hr>
+<div id="docxjs-container">
+    <!-- This contains your generated content -->
+</div>
+<hr>
+<!-- hidden element to hold the parsed document -->
+<input type="hidden" id="docxjs-content" name="docxjs-content">
+
+<script>
+    const targetDivId = "docxjs-container";
+    const targetContentId = "docxjs-content";
+    function onGetFile(el) {
+        var file = el.files[0]
+
+        //const targetId = "docxjs-content";
+        docx.renderAsync(file, document.getElementById(targetDivId), null, {
+            inWrapper: true, // was false
+            ignoreWidth: true,
+            ignoreHeight: true
+        })
+            .then(x => {
+                console.log(x);
+                // after rendering, place the output directly into the hidden input field
+                //const content = document.getElementById("docxjs-content");
+
+                // Assuming x contains the processed content or you have access to it here
+                // content.value = x; // Or use appropriate method to get the output content
+
+                console.log("docx: parse and render finished");
+            });
+    }
+
+    function serializeDivContent() {
+        const inputElement = document.getElementById(targetContentId);
+
+        // Get the contents of the DIV and set it as the value of the hidden input
+        inputElement.value = document.getElementById(targetDivId).innerHTML;
+        console.log("docx: length of content: " + inputElement.value.length);
+
+        console.log("docx: serialize finished");
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+[Unit]
+Description=Run ottomap every 1 minutes
+After=network-online.target
+
+[Service]
+Type=simple
+User=ottoweb
+Group=ottoweb
+WorkingDirectory=/var/www/ottomap.mdhenderson.com
+ExecStart=/var/www/ottomap.mdhenderson.com/bin/ottomap.service.sh

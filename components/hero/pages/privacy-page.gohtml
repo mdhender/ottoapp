@@ -1,0 +1,88 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc. All rights reserved.
+     You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}
+<div class="bg-white px-6 py-32 lg:px-8">
+    <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+        <p class="text-base font-semibold leading-7 text-indigo-600">
+            Legal
+        </p>
+
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Privacy Policy
+        </h1>
+
+        <p class="mt-6 text-xl leading-8">
+            This website is a non-commercial hobby project based in the USA.
+            Access to this website is restricted to TribeNet players only.
+        </p>
+
+        <div class="mt-10 max-w-2xl">
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900">
+                Personal Data
+            </h2>
+
+            <p class="mt-6">
+                This website does not collect any personal data.
+            </p>
+
+            <br>
+
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900">
+                Game Data
+            </h2>
+
+            <p class="mt-6">
+                Your game data is stored on the server and is not shared with any third parties.
+                Every player's data is stored in separate folders.
+                Access is password protected and restricted to the server owner and the players themselves.
+            </p>
+
+            <p class="mt-6">
+                You can remove all non-movement data from your reports before uploading them.
+                The parser ignores that data, so it never impacts map generation.
+            </p>
+
+            <br>
+
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900">
+                What do we collect?
+            </h2>
+
+            <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
+                <li class="flex gap-x-3">
+                    <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span>
+                            <strong class="font-semibold text-gray-900">Cookies</strong>
+                            <br>
+                            We use cookies to store your session data.
+                            This is necessary to control access to data on the site.
+                            If you disable cookies, you will not be able to access most of the site.
+                        </span>
+                </li>
+                <li class="flex gap-x-3">
+                    <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span>
+                            <strong class="font-semibold text-gray-900">IP addresses</strong>
+                            <br>
+                            The server uses Nginx to serve the site.
+                            Nginx logs IP addresses for security and abuse detection.
+                            The logs are deleted after 30 days.
+                        </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{{end}}

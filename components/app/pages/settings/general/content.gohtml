@@ -1,0 +1,83 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc.
+     All rights reserved. You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/settings/general.Content_t*/ -}}
+<div class="mx-auto max-w-2xl space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
+    <div>
+        <h2 class="text-base font-semibold leading-7 text-gray-900">Profile</h2>
+        <p class="mt-1 text-sm leading-6 text-gray-500">
+            The information on this page is read-only.
+            Please send a DM in Discord or an e-mail to update your settings.
+        </p>
+
+        <dl class="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+            <div class="pt-6 sm:flex">
+                <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">Clan</dt>
+                <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                    <div class="text-gray-900">{{.ClanId}}</div>
+                    <!-- button disable type="button" class="font-semibold text-indigo-600 hover:text-indigo-500">
+                        Update
+                    </button -->
+                </dd>
+            </div>
+            <div class="pt-6 sm:flex">
+                <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">Account Name</dt>
+                <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                    <div class="text-gray-900">{{.AccountName}}</div>
+                    <!-- button disable type="button" class="font-semibold text-indigo-600 hover:text-indigo-500">
+                        Update
+                    </button -->
+                </dd>
+            </div>
+            <div class="pt-6 sm:flex">
+                <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">Roles</dt>
+                <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                    <div class="text-gray-900">{{.Roles}}</div>
+                    <!-- button disable type="button" class="font-semibold text-indigo-600 hover:text-indigo-500">
+                        Update
+                    </button -->
+                </dd>
+            </div>
+            <div class="pt-6 sm:flex">
+                <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">Data Path</dt>
+                <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                    <div class="text-gray-900">{{.Data}}</div>
+                    <!-- button disable type="button" class="font-semibold text-indigo-600 hover:text-indigo-500">
+                        Update
+                    </button -->
+                </dd>
+            </div>
+        </dl>
+    </div>
+
+    <div>
+        <h2 class="text-base font-semibold leading-7 text-gray-900">Language and dates</h2>
+        <p class="mt-1 text-sm leading-6 text-gray-500">
+            Language and date/time settings for your account.
+        </p>
+
+        <dl class="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+            <div class="pt-6 sm:flex">
+                <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">Language</dt>
+                <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                    <div class="text-gray-900">English</div>
+                </dd>
+            </div>
+            <div class="pt-6 sm:flex">
+                <dt class="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">Timezone</dt>
+                <dd class="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                    <div id="timezone-div">
+                        {{template "timezone" .LanguageAndDates.TimezoneSelect}}
+                    </div>
+                    <button type="button"
+                            hx-post="/settings/general/timezone" hx-target="#timezone-div" hx-include="#timezone-location"
+                        class="font-semibold text-indigo-600 hover:text-indigo-500">
+                        Update
+                    </button>
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>
+{{end}}

@@ -1,0 +1,222 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc. All rights reserved.
+     You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}
+<div class="bg-white px-6 py-32 lg:px-8">
+    <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+        <p class="text-base font-semibold leading-7 text-indigo-600">
+            Documentation
+        </p>
+
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            OttoMap for TribeNet
+        </h1>
+
+        <p class="mt-6 text-xl leading-8">
+            OttoMap is a tool for TribeNet players to visualize their TribeNet maps.
+            It reads your TribeNet turn reports and generates a Worldographer map that you can view on your
+            computer.
+        </p>
+
+        <div class="mt-10 max-w-2xl">
+            <figure class="mt-16">
+                <img class="aspect-video rounded-xl bg-gray-50 object-cover"
+                     src="/img/ottomap-splash.png"
+                     alt="">
+                <figcaption class="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
+                    <svg class="mt-0.5 h-5 w-5 flex-none text-gray-300" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    This Chief knows the way.
+                </figcaption>
+            </figure>
+
+            <h2 class="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+                From tabula rasa to orbis terrarum in minutes
+            </h2>
+            <p class="mt-6">
+                The OttoMap tool is designed to be as easy to use as possible, but it does require installing a Go
+                compiler and working from the command line.
+                This website was created to help you avoid all that hassle.
+            </p>
+            <figure class="mt-10 border-l border-indigo-600 pl-9">
+                <blockquote class="font-semibold text-gray-900">
+                    <p>
+                        “OttoMap is a great tool for TribeNet players.
+                        It's easy to use and it generates a map that you can view on your computer.
+                        But this web site makes it so much nicer to use!”
+                    </p>
+                </blockquote>
+                <figcaption class="mt-6 flex gap-x-4">
+                    <img class="h-6 w-6 flex-none rounded-full bg-gray-50"
+                         src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                         alt="">
+                    <div class="text-sm leading-6">
+                        <strong class="font-semibold text-gray-900">Jelly Stormgoat</strong> – Chief, Clan 0987
+                    </div>
+                </figcaption>
+            </figure>
+            <p class="mt-10">
+                OttoWeb makes it easy to use OttoMap without installing any software.
+                Just upload your turn reports and OttoWeb will generate a map for you in seconds.
+                (Okay, the background services run once a minute, so there's a slight delay, but it's still pretty
+                quick.)
+            </p>
+        </div>
+        <figure class="mt-16">
+            <img class="aspect-video rounded-xl bg-gray-50 object-cover"
+                 src="/img/hexes-001.png"
+                 alt="">
+            <figcaption class="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
+                <svg class="mt-0.5 h-5 w-5 flex-none text-gray-300" viewBox="0 0 20 20" fill="currentColor"
+                     aria-hidden="true" data-slot="icon">
+                    <path fill-rule="evenodd"
+                          d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z"
+                          clip-rule="evenodd"/>
+                </svg>
+                Explore strange new hexes.
+            </figcaption>
+        </figure>
+
+        <div class="mt-16 max-w-2xl">
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900">
+                Everything you need to get up and running
+            </h2>
+            <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
+                <li class="flex gap-x-3">
+                    <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span>
+                        <strong class="font-semibold text-gray-900">Word</strong>
+                        <br>
+                        You'll need a copy of Word (or OpenOffice) to work with the original report document.
+                    </span>
+                </li>
+                <li class="flex gap-x-3">
+                    <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span>
+                        <strong class="font-semibold text-gray-900">Worldographer</strong>
+                        <br>
+                        OttoMap creates Worldographer map files, so you'll need a copy of that to view the maps.
+                        You can download the latest version of Worldographer from their
+                        <a href="https://worldographer.com" class="text-indigo-600 hover:text-indigo-500">
+                            website
+                        </a>
+                        for free.
+                    </span>
+                </li>
+                <li class="flex gap-x-3">
+                    <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span>
+                        <strong class="font-semibold text-gray-900">Account</strong>
+                        <br>
+                        You'll need an account to use this website.
+                        Request one on the Discord server.
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="mt-16 max-w-2xl">
+            <h2 class="text-2xl font-bold tracking-tight text-gray-900">
+                Report files
+            </h2>
+            <p class="mt-6">
+                OttoMap is a powerful tool for converting your report files to map files, but it can't do it alone.
+                You must first convert the reports from Word to plain text documents.
+                This can be done by exporting the Word document to a plain text document,
+                or by copying and pasting the text from the Word document into a plain text document.
+            </p>
+            <ul role="list" class="mt-8 max-w-xl space-y-8 text-gray-600">
+                <li class="flex gap-x-3">
+                    <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span>
+                        <strong class="font-semibold text-gray-900">File Name</strong>
+                        <br>
+                        The report file name must match the pattern of <code>YYYY-MM.CLAN.report.txt</code>.
+                        The year must be four digits (e.g., "0899" not "899") and month must be two digits (e.g. "04" not "4" or "April").
+                        The clan name must be four digits long (e.g. "0987" not "987").
+                        This helps ensure that the report files are processed in the correct order.
+                        It sets us up to allow for clans to share maps with each other in the future.
+                    </span>
+                </li>
+                <li class="flex gap-x-3">
+                    <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span>
+                        <strong class="font-semibold text-gray-900">Blank lines</strong>
+                        <br>
+                        The file must not start with a blank line.
+                        The first line of the file must be the clan's location (e.g. "Tribe 0981").
+                        In the future, the uploader will be updated to check for this and notify you if it's missing.
+                    </span>
+                </li>
+                <li class="flex gap-x-3">
+                    <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span>
+                        <strong class="font-semibold text-gray-900">You may need to enter starting locations</strong>
+                        <br>
+                        OttoMap tries to automatically detect the starting locations, but it's not always perfect.
+                        If you see a message like "Could not find starting location for 0987e3", you will need to edit the report file and add a starting location for the element.
+                    </span>
+                </li>
+                <li class="flex gap-x-3">
+                    <svg class="mt-1 h-5 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor"
+                         aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                    <span>
+                        <strong class="font-semibold text-gray-900">You should upload all turns</strong>
+                        <br>
+                        OttoMap uses the location at the end of each turn to determine the starting location for the next turn (see the note above).
+                        If you skip turns, OttoMap will report an error if it can't find the starting location for the next turn.
+                        (This is confusing; reword this to capture the problem better. If a unit moved in that missing turn, then the report's Prior and Current locations will not match.)
+                    </span>
+                </li>
+            </ul>
+            <p class="mt-6">
+                I might update OttoMap to read the Word file directly in the future, but getting the maps right is
+                the priority for now.
+                There are packages that read Word files but the free ones don't correctly handle tables, formatting,
+                and line endings.
+                If OttoMap becomes popular enough, I might be able to find the time to do it write my own Word file
+                reader.
+            </p>
+        </div>
+    </div>
+</div>
+{{end}}

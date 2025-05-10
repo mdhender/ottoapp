@@ -1,0 +1,253 @@
+<!-- Copyright (c) 2024 Michael D Henderson. All rights reserved. -->
+<!-- Component code and styling is © 2024 Tailwind Labs Inc.
+     All rights reserved. You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
+
+{{define "content"}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/reports/uploads.Content_t*/ -}}
+<h2 class="text-base font-semibold leading-7 text-gray-900">
+    Upload turn reports
+</h2>
+
+<p class="mt-1 text-sm leading-6 text-gray-600">
+    This page provides two ways to upload your turn report.
+    You can either copy+paste the report text or drag and drop the file.
+</p>
+
+<p class="mt-1 text-sm leading-6 text-gray-600">
+    <strong>NOTE</strong>:
+    Whichever method you choose, you'll be redirected to the dashboard page after the report is uploaded.
+</p>
+
+<br>
+
+<h3 class="text-base font-semibold leading-7 text-gray-900">
+    Copy and Paste
+</h3>
+
+<p class="mt-1 text-sm leading-6 text-gray-600">
+    Paste the text from your turn report into the box below and click the "Submit" button to upload your report.
+</p>
+
+<div class="flex items-start space-x-4">
+    <div class="flex-shrink-0">
+        <img class="inline-block h-10 w-10 rounded-full" src="/img/avatars/default.png" alt="">
+    </div>
+    <div class="min-w-0 flex-1">
+        <form action="/api/v1/report/upload/text" method="POST" enctype="application/x-www-form-urlencoded" class="relative">
+            <div class="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
+                <label for="text" class="sr-only">Paste your turn report here</label>
+                <!-- removed resize-none -->
+                <textarea rows="3" name="text" id="text"
+                          class="block w-full border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                          placeholder="Paste your turn report here..."></textarea>
+
+                <!-- Spacer element to match the height of the toolbar -->
+                <div class="py-2" aria-hidden="true">
+                    <!-- Matches height of button in toolbar (1px border + 36px content height) -->
+                    <div class="py-px">
+                        <div class="h-9"></div>
+                    </div>
+                </div>
+            </div>
+
+            <fieldset>
+                <legend class="sr-only">Upload Switches</legend>
+                <div class="space-y-5">
+                    <div class="relative flex items-start">
+                        <div class="flex h-6 items-center">
+                            <input id="remove-sensitive-lines" aria-describedby="remove-sensitive-lines-description" name="remove-sensitive-lines"
+                                   type="checkbox"
+                                   class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        </div>
+                        <div class="ml-3 text-sm leading-6">
+                            <label for="remove-sensitive-lines" class="font-medium text-gray-900">Remove sensitive lines</label>
+                            <p id="remove-sensitive-lines-description" class="text-gray-500">
+                                Turn reports contain a lot of information that is not needed to create a map.
+                                <br>
+                                When checked, lines that are not related to location, movement, and scouting will be removed from the file.
+                                Remember, though, that error messages will refer to the lines in this smaller file, not your original file.
+                                <br>
+                                <strong>EXPERIMENTAL</strong>: this feature is experimental and may not work as expected.
+                                Please report any issues you find when using this feature.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative flex items-start">
+                        <div class="flex h-6 items-center">
+                            <input id="remove-bad-bytes" aria-describedby="remove-bad-bytes-description" name="remove-bad-bytes"
+                                   type="checkbox"
+                                   class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        </div>
+                        <div class="ml-3 text-sm leading-6">
+                            <label for="remove-bad-bytes" class="font-medium text-gray-900">Remove bad bytes</label>
+                            <p id="remove-bad-bytes-description" class="text-gray-500">
+                                Word on the Mac can introduce unexpected characters into the file.
+                                <br>
+                                When checked, these characters will be removed from the file.
+                                If you're not sure, leave this option unchecked.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative flex items-start">
+                        <div class="flex h-6 items-center">
+                            <input id="scrub-text" aria-describedby="scrub-text-description" name="scrub-text"
+                                   type="checkbox"
+                                   class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        </div>
+                        <div class="ml-3 text-sm leading-6">
+                            <label for="scrub-text" class="font-medium text-gray-900">Scrub text</label>
+                            <p id="remove-bad-bytes-description" class="text-gray-500">
+                                Copy and paste can be a bit finicky with special characters and line endings.
+                                <br>
+                                When checked, the server will attempt to scrub the text to make it more compatible with the parser.
+                                It will attempt to convert line endings to Unix-style line endings, and remove all non-ASCII characters.
+                                More importantly, it will not attempt to parse the document; it will update the text area with the scrubbed text.
+                                <br>
+                                If you're not sure, leave this option unchecked.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
+                <div class="flex items-center space-x-5">
+                </div>
+                <div class="flex-shrink-0">
+                    <button type="submit"
+                            class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Upload
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br>
+
+<h3 class="text-base font-semibold leading-7 text-gray-900">
+    Drag and Drop
+</h3>
+
+<p class="mt-1 text-sm leading-6 text-gray-600">
+    Drop your turn report file into the file upload box below.
+    The file must be a plain text file (not a Word document) and be less than 1MB in size.
+</p>
+
+<div class="bg-white shadow sm:rounded-lg">
+    <form action="/api/v1/report/upload/file" method="POST" enctype="multipart/form-data">
+        <div class="space-y-12">
+            <div class="border-b border-gray-900/10 pb-12">
+
+                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="col-span-full">
+                        <!-- Dropzone -->
+                        <div id="drop_zone"
+                             class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                            <div class="text-center">
+                                <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24"
+                                     fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                          d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
+                                          clip-rule="evenodd"/>
+                                </svg>
+                                <input type="file" accept=".txt"
+                                       class="sr-only"
+                                       id="file-upload" name="report-file">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<p class="mt-1 text-sm leading-6 text-gray-600">
+    <strong>NOTE</strong>:
+    OttoMap can't process Word documents.
+    You must convert the turn report to a plain text file before uploading it.
+    Instructions for converting a Word document to a plain text file can be found <a
+            href="/docs/converting-turn-reports" class="text-indigo-600 hover:text-indigo-500">here</a>.
+</p>
+
+<script>
+    // Get the drop zone and file input elements
+    const dropZone = document.getElementById('drop_zone');
+    const fileInput = document.getElementById('file-upload');
+
+    // Prevent default behaviors for drag-and-drop events
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    // Add highlighting effect when a file is dragged over the drop zone
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => dropZone.classList.add('highlight'), false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => dropZone.classList.remove('highlight'), false);
+    });
+
+    // Handle the file drop event
+    dropZone.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+
+        // do nothing if no files were dropped
+        if (files.length === 0) {
+            return;
+        }
+
+        // assume only one file is dropped and that it is the report file
+        const file = files[0];
+
+        // Basic file validation (size and type)
+        if (file.size > 1048576) {
+            alert('File size must be less than 1MB');
+            return;
+        }
+
+        // Regex to match the filename pattern "YYYY-MM.CLAN.report.txt"
+        const filenamePattern = /^\d+-\d+\.\d+\.report\.txt$/;
+        if (!filenamePattern.test(file.name)) {
+            alert('Please save your results as a text file from MS Word before uploading. The file must follow the pattern "YEAR-MONTH.CLAN.report.txt" (e.g. 901-01.0987.report.txt).');
+            return;
+        }
+
+        // Get the value of the checkbox (true or false based on whether it’s checked)
+        const removeBadBytesCheckbox = document.querySelector('input[name="remove-bad-bytes"]');
+        const removeSensitiveLinesCheckbox = document.querySelector('input[name="remove-sensitive-lines"]');
+
+        // Prepare the file for upload
+        const formData = new FormData();
+        formData.append('report-file', file);
+        formData.append('remove-bad-bytes', removeBadBytesCheckbox.checked ? 'true' : 'false');
+        formData.append('remove-sensitive-lines', removeSensitiveLinesCheckbox.checked ? 'true' : 'false');
+
+        // automatically upload the file using Fetch API
+        fetch('/api/v1/report/upload/file', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())  // Adjust as per your server response
+            .then(data => {
+                // alert(`File "${file.name}" uploaded successfully!`);
+                // Handle success (e.g., display success message, redirect, etc.)
+                window.location.href = `/reports/uploads/success`;
+            })
+            .catch(error => {
+                console.error('Error uploading file:', error);
+                alert('Failed to upload the file.');
+            });
+    }
+</script>
+{{end}}

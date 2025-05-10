@@ -30,6 +30,8 @@
 
 ## Front End
 - We will never use SSR
+- Node.js version 23.11.0 (specified in ottofe/.nvmrc)
+- Run `cd ottofe && nvm use` to ensure correct Node version
 
 ## Architecture Changes
 - Transitioning from Go HTML templates to React + Vite + Tailwind frontend

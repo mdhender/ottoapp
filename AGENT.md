@@ -41,3 +41,12 @@
 - Backend updated to serve only API endpoints
 - Frontend connects to https://localhost:29631/api/... in development
 - In production, frontend connects to /api/... with Nginx proxy to backend
+
+## Bash Scripts
+- Always use `${VARIABLE}` with curly braces for all variables
+- Always quote variable references: "${VARIABLE}"
+- Use `set -e` for early exit on errors
+- Include descriptive echo statements with emoji for visual feedback
+- Test endpoints in sequence with explicit validation
+- Exit with error code on test failures
+- Use curl with proper headers and jq for parsing responses

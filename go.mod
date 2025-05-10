@@ -1,4 +1,4 @@
-module github.com/mdhender/ottoweb
+module github.com/mdhender/ottoapp
 
 go 1.23.2
 

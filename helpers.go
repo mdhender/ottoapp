@@ -4,7 +4,7 @@ package main
 
 import (
 	"errors"
-	"github.com/mdhender/ottoweb/domains"
+	"github.com/mdhender/ottoapp/domains"
 	"os"
 	"path/filepath"
 )

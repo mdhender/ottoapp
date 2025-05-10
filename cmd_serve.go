@@ -6,7 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/mdhender/ottoweb/stores/sqlite"
+	"github.com/mdhender/ottoapp/stores/sqlite"
 	"github.com/spf13/cobra"
 	"log"
 	"net/http"

@@ -1,15 +1,15 @@
 [Unit]
-Description=Otto Web server
+Description=Otto App server
 StartLimitIntervalSec=0
 After=network-online.target
 
 [Service]
 Type=simple
-User=ottoweb
-Group=ottoweb
-PIDFile=/run/ottoweb.pid
+User=ottoapp
+Group=ottoapp
+PIDFile=/run/ottoapp.pid
 WorkingDirectory=/var/www/ottomap.mdhenderson.com
-ExecStart=/var/www/ottomap.mdhenderson.com/bin/ottoweb serve --database /home/ottoweb/data/ottoweb.db
+ExecStart=/var/www/ottomap.mdhenderson.com/bin/ottoapp serve --database /home/ottoapp/data/ottoapp.db
 ExecReload=/bin/kill -USR1 $MAINPID
 Restart=on-failure
 RestartSec=13

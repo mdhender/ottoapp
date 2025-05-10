@@ -1,4 +1,4 @@
-# ottoweb
+# ottoapp
 Web server for OttoMap
 
 # TailwindUI
@@ -62,7 +62,7 @@ npx tailwindcss -i assets/css/tailwind-input.css -o assets/css/tailwind.css --wa
 # Build for DO
 
 ```bash
-GOOS=linux GOARCH=amd64 go build -o ottoweb.exe
+GOOS=linux GOARCH=amd64 go build -o ottoapp.exe
 ```
 
 # Mac Notes

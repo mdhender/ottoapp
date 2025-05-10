@@ -2,7 +2,7 @@
 <!-- Component code and styling is © 2024 Tailwind Labs Inc.
      All rights reserved. You are not allowed to use these files outside of this project; you may not copy or distribute them. -->
 
-{{define "content"}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/dashboard.Content*/ -}}
+{{define "content"}}{{- /*gotype:github.com/mdhender/ottoapp/components/app/pages/dashboard.Content*/ -}}
 <div class="px-4 sm:px-6 lg:px-8">
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
@@ -23,7 +23,7 @@
     <br>
 
     <nav class="h-full overflow-y-auto" aria-label="Directory">
-        {{range .Turns}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/dashboard.TurnFiles_t*/ -}}
+        {{range .Turns}}{{- /*gotype:github.com/mdhender/ottoapp/components/app/pages/dashboard.TurnFiles_t*/ -}}
         {{template "turn-files" .}}
         {{end}}
     </nav>

@@ -6,8 +6,8 @@ import (
 	"database/sql"
 	"errors"
 	"github.com/google/uuid"
-	"github.com/mdhender/ottoweb/domains"
-	"github.com/mdhender/ottoweb/stores/sqlite/sqlc"
+	"github.com/mdhender/ottoapp/domains"
+	"github.com/mdhender/ottoapp/stores/sqlite/sqlc"
 	"time"
 )
 

@@ -4,7 +4,7 @@ After=network-online.target
 
 [Service]
 Type=simple
-User=ottoweb
-Group=ottoweb
+User=ottoapp
+Group=ottoapp
 WorkingDirectory=/var/www/ottomap.mdhenderson.com
 ExecStart=/var/www/ottomap.mdhenderson.com/bin/ottomap.service.sh

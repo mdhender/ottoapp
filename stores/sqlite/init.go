@@ -10,7 +10,7 @@ import (
 	_ "embed"
 	"errors"
 	"github.com/google/uuid"
-	"github.com/mdhender/ottoweb/domains"
+	"github.com/mdhender/ottoapp/domains"
 	"log"
 	"os"
 )

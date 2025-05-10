@@ -2,7 +2,7 @@
 
 package app
 
-import "github.com/mdhender/ottoweb/components/app/widgets"
+import "github.com/mdhender/ottoapp/components/app/widgets"
 
 type Layout struct {
 	Title       string

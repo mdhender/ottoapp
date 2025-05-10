@@ -4,8 +4,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/mdhender/ottoweb/stores/ffs"
-	"github.com/mdhender/ottoweb/stores/sqlite"
+	"github.com/mdhender/ottoapp/stores/ffs"
+	"github.com/mdhender/ottoapp/stores/sqlite"
 	"net"
 	"os"
 	"path/filepath"

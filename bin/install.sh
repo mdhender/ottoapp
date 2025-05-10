@@ -9,7 +9,7 @@ if [ ! -d "${WEB_ROOT}" ]; then
 elif [ ! -d "${WEB_ROOT}/bin" ]; then
   echo "error: missing web root bin"
   exit 2
-elif [ ! -f "${WEB_ROOT}/ottoweb.tgz" ]; then
+elif [ ! -f "${WEB_ROOT}/ottoapp.tgz" ]; then
   echo "error: missing tarball"
   exit 2
 fi
@@ -18,23 +18,23 @@ echo " info: setting def to web root..."
 cd "${WEB_ROOT}"  || exit 2
 
 
-if [ -f "${WEB_ROOT}/bin/ottoweb" ]; then
+if [ -f "${WEB_ROOT}/bin/ottoapp" ]; then
   echo " info: removing old executable..."
-  rm "${WEB_ROOT}/bin/ottoweb" || exit 2
+  rm "${WEB_ROOT}/bin/ottoapp" || exit 2
 fi
 
 echo " info: extracting tarball..."
-tar xzf ottoweb.tgz || exit 2
-mv ottoweb.exe "${WEB_ROOT}/bin/ottoweb" || exit 2
+tar xzf ottoapp.tgz || exit 2
+mv ottoapp.exe "${WEB_ROOT}/bin/ottoapp" || exit 2
 
 echo " info: forcing bits on executable..."
-chmod 755 "${WEB_ROOT}/bin/ottoweb" || exit 2
+chmod 755 "${WEB_ROOT}/bin/ottoapp" || exit 2
 
 echo " info: testing executable..."
-"${WEB_ROOT}/bin/ottoweb" version || exit 2
+"${WEB_ROOT}/bin/ottoapp" version || exit 2
 
 echo " info: removing tarball..."
-rm ottoweb.tgz || exit 2
+rm ottoapp.tgz || exit 2
 
 echo " info: installation completed successfully"
 exit 0

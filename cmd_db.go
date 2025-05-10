@@ -5,7 +5,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/mdhender/ottoweb/stores/sqlite"
+	"github.com/mdhender/ottoapp/stores/sqlite"
 	"github.com/mdhender/phrases/v2"
 	"github.com/spf13/cobra"
 	"log"

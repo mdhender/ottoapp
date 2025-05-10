@@ -2,7 +2,7 @@
 
 package dashboard
 
-import "github.com/mdhender/ottoweb/components/app"
+import "github.com/mdhender/ottoapp/components/app"
 
 type Content struct {
 	ClanId string

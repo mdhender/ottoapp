@@ -1,6 +1,6 @@
 // Copyright (c) 2024 Michael D Henderson. All rights reserved.
 
-// Package main implements the ottoweb command.
+// Package main implements the ottoapp command.
 package main
 
 import (
@@ -32,7 +32,7 @@ var (
 	}
 
 	cmdRoot = &cobra.Command{
-		Use:   "ottoweb",
+		Use:   "ottoapp",
 		Short: "Root command for our application",
 		Long:  `Run a web server for TribeNet maps.`,
 		Run: func(cmd *cobra.Command, args []string) {

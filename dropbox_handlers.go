@@ -8,9 +8,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/mdhender/ottoweb/components/app"
-	"github.com/mdhender/ottoweb/components/app/pages/reports/uploads/dropbox"
-	"github.com/mdhender/ottoweb/components/app/widgets"
+	"github.com/mdhender/ottoapp/components/app"
+	"github.com/mdhender/ottoapp/components/app/pages/reports/uploads/dropbox"
+	"github.com/mdhender/ottoapp/components/app/widgets"
 	"github.com/playbymail/tndocx"
 	"html/template"
 	"io"
@@ -270,7 +270,7 @@ func (s *Server) postDropboxScrub(path string, serverVersion string) http.Handle
 		}
 		metaTimestamp := time.Now().In(user.LanguageAndDates.Timezone.Location)
 		scrubbedData.WriteString(fmt.Sprintf("// submitted by user %s at %s\n", user.Clan, metaTimestamp.Format("2006-01-02 15:04:05")))
-		scrubbedData.WriteString(fmt.Sprintf("// ottoweb v%s\n", serverVersion))
+		scrubbedData.WriteString(fmt.Sprintf("// ottoapp v%s\n", serverVersion))
 		scrubbedData.WriteString(fmt.Sprintf("// tndocx  v%s\n", tndocx.Version()))
 		// stuff the section back in
 		for _, section := range sections {

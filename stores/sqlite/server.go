@@ -5,7 +5,7 @@ package sqlite
 import (
 	"crypto/sha256"
 	"encoding/hex"
-	"github.com/mdhender/ottoweb/domains"
+	"github.com/mdhender/ottoapp/domains"
 	"os"
 	"path/filepath"
 )

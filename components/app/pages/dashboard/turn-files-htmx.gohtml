@@ -1,10 +1,10 @@
-{{define "turn-files"}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/dashboard.TurnFiles_t*/ -}}
+{{define "turn-files"}}{{- /*gotype:github.com/mdhender/ottoapp/components/app/pages/dashboard.TurnFiles_t*/ -}}
 <div class="relative" hx-target="this">
     <div class="sticky top-0 z-10 border-y border-b-gray-200 border-t-gray-100 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900">
         <h3>Turn {{.Turn}}{{if .IsEmpty}} (no files){{end}}</h3>
     </div>
     <ul role="list" class="divide-y divide-gray-100">
-        {{range .Reports}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/dashboard.FileInfo_t*/ -}}
+        {{range .Reports}}{{- /*gotype:github.com/mdhender/ottoapp/components/app/pages/dashboard.FileInfo_t*/ -}}
             <li class="flex gap-x-4 px-3 py-5">
                 <div>
                     <a href="{{.Route}}">
@@ -26,7 +26,7 @@
                 </button>
             </li>
         {{end}}
-        {{range .Errors}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/dashboard.FileInfo_t*/ -}}
+        {{range .Errors}}{{- /*gotype:github.com/mdhender/ottoapp/components/app/pages/dashboard.FileInfo_t*/ -}}
             <li class="flex gap-x-4 px-3 py-5">
                 <div>
                     <a href="{{.Route}}">
@@ -48,7 +48,7 @@
                 </button>
             </li>
         {{end}}
-        {{range .Logs}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/dashboard.FileInfo_t*/ -}}
+        {{range .Logs}}{{- /*gotype:github.com/mdhender/ottoapp/components/app/pages/dashboard.FileInfo_t*/ -}}
             <li class="flex gap-x-4 px-3 py-5">
                 <div>
                     <a href="{{.Route}}">
@@ -70,7 +70,7 @@
                 </button>
             </li>
         {{end}}
-        {{range .Maps}}{{- /*gotype:github.com/mdhender/ottoweb/components/app/pages/dashboard.FileInfo_t*/ -}}
+        {{range .Maps}}{{- /*gotype:github.com/mdhender/ottoapp/components/app/pages/dashboard.FileInfo_t*/ -}}
             <li class="flex gap-x-4 px-3 py-5">
                 <div>
                     <a href="{{.Route}}">

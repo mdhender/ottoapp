@@ -4,10 +4,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/mdhender/ottoweb/components/app"
-	"github.com/mdhender/ottoweb/domains"
-	"github.com/mdhender/ottoweb/stores/ffs"
-	"github.com/mdhender/ottoweb/stores/sqlite"
+	"github.com/mdhender/ottapp/components/app"
+	"github.com/mdhender/ottapp/domains"
+	"github.com/mdhender/ottapp/stores/ffs"
+	"github.com/mdhender/ottapp/stores/sqlite"
 	"log"
 	"net"
 	"net/http"
@@ -36,8 +36,8 @@ func newServer(options ...Option) (*Server, error) {
 	s.ReadTimeout = 5 * time.Second
 	s.WriteTimeout = 10 * time.Second
 
-	s.sessions.cookieName = "ottoweb"
-	s.sessions.rememberMe = "ottoweb1-clan-idff-b364-a70ced220fff"
+	s.sessions.cookieName = "ottoapp"
+	s.sessions.rememberMe = "ottoapp1-clan-idff-b364-a70ced220fff"
 	s.sessions.ttl = 2 * 7 * 24 * time.Hour
 	s.sessions.maxAge = 2 * 7 * 24 * 60 * 60 // 2 weeks
 

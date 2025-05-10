@@ -2,7 +2,7 @@
 
 package settings
 
-import "github.com/mdhender/ottoweb/components/app"
+import "github.com/mdhender/ottoapp/components/app"
 
 type Layout_t struct {
 	Title       string

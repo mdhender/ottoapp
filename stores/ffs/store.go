@@ -6,7 +6,7 @@ package ffs
 import (
 	"bytes"
 	"fmt"
-	"github.com/mdhender/ottoweb/domains"
+	"github.com/mdhender/ottoapp/domains"
 	"log"
 	"os"
 	"path/filepath"

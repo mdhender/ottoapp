@@ -9,7 +9,7 @@ import (
 	"context"
 	"database/sql"
 	_ "embed"
-	"github.com/mdhender/ottoweb/stores/sqlite/sqlc"
+	"github.com/mdhender/ottoapp/stores/sqlite/sqlc"
 )
 
 type DB struct {

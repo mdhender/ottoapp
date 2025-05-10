@@ -30,3 +30,10 @@
 
 ## Front End
 - We will never use SSR
+
+## Architecture Changes
+- Transitioning from Go HTML templates to React + Vite + Tailwind frontend
+- Frontend served by `npm run dev` in development, Nginx in production
+- Backend updated to serve only API endpoints
+- Frontend connects to https://localhost:29631/api/... in development
+- In production, frontend connects to /api/... with Nginx proxy to backend

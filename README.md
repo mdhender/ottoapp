@@ -1,6 +1,20 @@
 # ottoapp
 Web server for OttoMap
 
+TODO: add Air or a Makefile to run both front and back end in development.
+
+# Backend
+
+```bash
+cd ottobe && go build && ./ottobe --host localhost --port 29631 --data ../userdata
+```
+
+# Frontend
+
+```bash
+cd ottofe && npm run dev
+```
+
 # TailwindUI
 
 ## License

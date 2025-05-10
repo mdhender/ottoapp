@@ -12,10 +12,10 @@ import (
 
 // Common domain errors
 var (
-	ErrInvalidClan      = errors.New("invalid clan")
-	ErrInvalidEmail     = errors.New("invalid email")
-	ErrInvalidTimezone  = errors.New("invalid timezone")
-	ErrUnauthorized     = errors.New("unauthorized")
+	ErrInvalidClan     = errors.New("invalid clan")
+	ErrInvalidEmail    = errors.New("invalid email")
+	ErrInvalidTimezone = errors.New("invalid timezone")
+	ErrUnauthorized    = errors.New("unauthorized")
 )
 
 // User represents a user in the system
@@ -119,6 +119,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 
 // Login handles user login requests
 func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
+	log.Printf("%s %s: entered\n", r.Method, r.URL.Path)
 	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
@@ -130,7 +131,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Printf("Login attempt for user: %s", req.Email)
+	log.Printf("Login attempt for user: %q", req.Email)
 
 	// Authenticate user
 	user, err := h.Store.AuthenticateUser(req.Email, req.Password)
@@ -143,6 +144,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 			msg = "Invalid credentials"
 		}
 
+		log.Printf("Login attempt for user: %q: failed", req.Email)
 		RespondWithJSON(w, code, LoginResponse{
 			Success: false,
 			Message: msg,
@@ -153,12 +155,15 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	// Generate JWT token
 	token, err := GenerateJWT(h.JWTKey, user.ID, user.Clan, user.IsActive)
 	if err != nil {
+		log.Printf("Login attempt for user: %q: token creation failed", req.Email)
 		RespondWithJSON(w, http.StatusInternalServerError, LoginResponse{
 			Success: false,
 			Message: "Error generating authentication token",
 		})
 		return
 	}
+
+	log.Printf("Login attempt for user: %q: succeeded", req.Email)
 
 	RespondWithJSON(w, http.StatusOK, LoginResponse{
 		Success: true,

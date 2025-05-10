@@ -7,7 +7,7 @@
 - Tests: `go test ./...`
 - Run single test: `go test -v ./path/to/package -run TestName`
 - Format code: `go fmt ./...`
-- Update CSS: `npx tailwindcss -i assets/css/tailwind-input.css -o assets/css/tailwind.css --watch`
+- Frontend dev server: `cd ottofe && npm run dev`
 
 ## Code Style
 - Standard Go formatting using `gofmt`
@@ -32,6 +32,8 @@
 - We will never use SSR
 - Node.js version 23.11.0 (specified in ottofe/.nvmrc)
 - Run `cd ottofe && nvm use` to ensure correct Node version
+- Using Tailwind CSS v4 with direct import (no tailwind.config.js)
+- Path aliases configured in vite.config.js: '@' and '@components'
 
 ## Architecture Changes
 - Transitioning from Go HTML templates to React + Vite + Tailwind frontend

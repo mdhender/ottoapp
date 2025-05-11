@@ -1,0 +1,11 @@
+# .air.toml
+root = "."
+tmp_dir = "../build"
+
+[build]
+  cmd = "go build -o ../build/ottobe"
+  bin = "../build/ottobe"
+  include_ext = ["go"]
+  exclude_dir = ["bin", "build", "nginx", "systemd"]
+  exclude_file = []
+  delay = 1000 # in milliseconds

@@ -24,6 +24,7 @@ type User struct {
 	Email     string    `json:"email"`
 	Clan      string    `json:"clan"`
 	IsActive  bool      `json:"isActive"`
+	IsAdmin   bool      `json:"isAdmin"`
 	Created   time.Time `json:"created"`
 	LastLogin time.Time `json:"lastLogin"`
 	Timezone  string    `json:"timezone"`
@@ -57,6 +58,7 @@ type UserResponse struct {
 	Email     string    `json:"email"`
 	Clan      string    `json:"clan"`
 	IsActive  bool      `json:"isActive"`
+	IsAdmin   bool      `json:"isAdmin"`
 	Created   time.Time `json:"created"`
 	LastLogin time.Time `json:"lastLogin"`
 	Timezone  string    `json:"timezone"`
@@ -111,6 +113,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 		Email:     user.Email,
 		Clan:      user.Clan,
 		IsActive:  user.IsActive,
+		IsAdmin:   user.IsAdmin,
 		Created:   user.Created,
 		LastLogin: user.LastLogin,
 		Timezone:  user.Timezone,
@@ -153,7 +156,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Generate JWT token
-	token, err := GenerateJWT(h.JWTKey, user.ID, user.Clan, user.IsActive)
+	token, err := GenerateJWT(h.JWTKey, user.ID, user.Clan, user.IsActive, user.IsAdmin)
 	if err != nil {
 		log.Printf("Login attempt for user: %q: token creation failed", req.Email)
 		RespondWithJSON(w, http.StatusInternalServerError, LoginResponse{
@@ -194,6 +197,7 @@ func (h *AuthHandler) GetUser(w http.ResponseWriter, r *http.Request) {
 		Email:     user.Email,
 		Clan:      user.Clan,
 		IsActive:  user.IsActive,
+		IsAdmin:   user.IsAdmin,
 		Created:   user.Created,
 		LastLogin: user.LastLogin,
 		Timezone:  user.Timezone,

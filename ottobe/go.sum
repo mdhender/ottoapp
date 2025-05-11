@@ -1,2 +1,4 @@
 github.com/golang-jwt/jwt/v5 v5.2.2 h1:Rl4B7itRWVtYIHFrSNd7vhTiz9UpLdi6gZhZ3wEeDy8=
 github.com/golang-jwt/jwt/v5 v5.2.2/go.mod h1:pqrtFR0X4osieyHYxtmOUWsAWrfe1Q5UVIyoH402zdk=
+github.com/mdhender/semver v0.0.0-20240121182447-31da48bf9537 h1:7Ux/5351hvWxMbIdwLjdWGTrDKlS+N870pFt5kW2OoI=
+github.com/mdhender/semver v0.0.0-20240121182447-31da48bf9537/go.mod h1:mCbEE77BIdyn6yZkD06/4W+9Q6AldeZSL+1PQk9q0VY=

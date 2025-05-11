@@ -4,8 +4,8 @@ tmp_dir = "../build"
 
 [build]
   cmd = "go build -o ../build/ottobe"
-  bin = "../build/ottobe"
+  bin = "../build/ottobe --dev"
   include_ext = ["go"]
-  exclude_dir = ["bin", "build", "nginx", "systemd"]
+  exclude_dir = ["userdata"]
   exclude_file = []
   delay = 1000 # in milliseconds

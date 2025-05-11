@@ -33,17 +33,19 @@ type JWTClaims struct {
 	UserID   int64  `json:"userId"`
 	Clan     string `json:"clan"`
 	IsActive bool   `json:"isActive"`
+	IsAdmin  bool   `json:"isAdmin"`
 	jwt.RegisteredClaims
 }
 
 // GenerateJWT creates a JWT token for a user
-func GenerateJWT(key []byte, userID int64, clan string, isActive bool) (string, error) {
+func GenerateJWT(key []byte, userID int64, clan string, isActive bool, isAdmin bool) (string, error) {
 	expiresAt := time.Now().Add(24 * time.Hour) // Token expires in 24 hours
 
 	claims := JWTClaims{
 		UserID:   userID,
 		Clan:     clan,
 		IsActive: isActive,
+		IsAdmin:  isAdmin,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expiresAt),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),

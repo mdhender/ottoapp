@@ -78,5 +78,67 @@ TURN_EXISTS=$(echo "${TURN_RESPONSE}" | jq -r '.exists')
 echo "Turn data exists: ${TURN_EXISTS}"
 echo
 
+# Test admin functionality with admin credentials
+echo "👑 Testing admin functionality..."
+echo "🔐 Logging in as admin..."
+ADMIN_LOGIN_RESPONSE=$(curl -s -X POST "${URL}/api/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@example.com","password":"admin"}')
+
+echo "Admin login response:"
+echo "${ADMIN_LOGIN_RESPONSE}" | jq .
+echo
+
+# Extract admin token
+ADMIN_TOKEN=$(echo "${ADMIN_LOGIN_RESPONSE}" | jq -r '.token')
+
+if [ "${ADMIN_TOKEN}" == "null" ] || [ -z "${ADMIN_TOKEN}" ]; then
+  echo "❌ Admin login failed, skipping admin tests"
+else
+  echo "✅ Admin login successful"
+  echo
+  
+  echo "🔄 Testing route logging toggle..."
+  TOGGLE_RESPONSE=$(curl -s -X POST "${URL}/api/admin/debug/log-all-routes" \
+    -H "Authorization: Bearer ${ADMIN_TOKEN}")
+  
+  echo "Toggle response:"
+  echo "${TOGGLE_RESPONSE}" | jq .
+  echo
+  
+  LOGGING_STATUS=$(echo "${TOGGLE_RESPONSE}" | jq -r '.logging')
+  if [ "${LOGGING_STATUS}" == "null" ] || [ -z "${LOGGING_STATUS}" ]; then
+    echo "❌ Route logging toggle failed"
+  else
+    echo "✅ Route logging ${LOGGING_STATUS}"
+    
+    # Toggle it back
+    echo "🔄 Toggling route logging back..."
+    TOGGLE_BACK_RESPONSE=$(curl -s -X POST "${URL}/api/admin/debug/log-all-routes" \
+      -H "Authorization: Bearer ${ADMIN_TOKEN}")
+    
+    LOGGING_STATUS=$(echo "${TOGGLE_BACK_RESPONSE}" | jq -r '.logging')
+    echo "✅ Route logging now ${LOGGING_STATUS}"
+  fi
+fi
+
+echo
+
+echo "📮 Testing /api/version endpoint..."
+VERSION_RESPONSE=$(curl -s "${URL}/api/version")
+
+echo "Version response:"
+echo "${VERSION_RESPONSE}" | jq .
+echo
+
+VERSION_STRING=$(echo "${VERSION_RESPONSE}" | jq -r '.version')
+if [ "${VERSION_STRING}" == "null" ] || [ -z "${VERSION_STRING}" ]; then
+  echo "❌ Version endpoint failed"
+  exit 1
+fi
+
+echo "✅ Server version: ${VERSION_STRING}"
+echo
+
 echo "✅ All tests completed successfully!"
 exit 0

@@ -4,6 +4,7 @@ package api
 
 import (
 	"context"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -13,7 +14,9 @@ func AuthMiddleware(jwtKey []byte) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Skip auth for specific paths
-			if r.URL.Path == "/api/auth/login" || r.URL.Path == "/api/health" {
+			if r.URL.Path == "/api/auth/login" ||
+				r.URL.Path == "/api/health" ||
+				r.Method == http.MethodOptions {
 				next.ServeHTTP(w, r)
 				return
 			}
@@ -43,6 +46,10 @@ func AuthMiddleware(jwtKey []byte) func(http.Handler) http.Handler {
 			ctx := context.WithValue(r.Context(), "userID", claims.UserID)
 			ctx = context.WithValue(ctx, "clan", claims.Clan)
 			ctx = context.WithValue(ctx, "isActive", claims.IsActive)
+			ctx = context.WithValue(ctx, "isAdmin", claims.IsAdmin)
+
+			log.Printf("Auth middleware: userId=%v, clan=%s, isAdmin=%v",
+				claims.UserID, claims.Clan, claims.IsAdmin)
 
 			// Call next handler with enhanced context
 			next.ServeHTTP(w, r.WithContext(ctx))

@@ -10,6 +10,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/mdhender/ottoapp/ottobe/api"
+	"github.com/mdhender/semver"
 	"log"
 	"net/http"
 	"os"
@@ -20,12 +21,17 @@ import (
 )
 
 var (
+	// Version information
+	version = semver.Version{Major: 0, Minor: 1, Patch: 2}  // Fixed isAdmin flag for admin user
+	
 	// Command line flags
 	databasePath string
 	dataPath     string
 	host         string
 	port         string
 	jwtKey       string
+	devMode      bool    // Development mode flag
+	showVersion  bool    // Show version and exit
 )
 
 // SimpleUserStore is a simple implementation of the UserStore interface for demo purposes
@@ -47,6 +53,7 @@ func (s *SimpleUserStore) AuthenticateUser(email, password string) (*api.User, e
 			Email:     "demo@example.com",
 			Clan:      "0001",
 			IsActive:  true,
+			IsAdmin:   false,
 			Created:   time.Now().AddDate(0, 0, -30),
 			LastLogin: time.Now(),
 			Timezone:  "UTC",
@@ -60,6 +67,7 @@ func (s *SimpleUserStore) AuthenticateUser(email, password string) (*api.User, e
 			Email:     "admin@example.com",
 			Clan:      "0000",
 			IsActive:  true,
+			IsAdmin:   true,  // Set admin flag for admin user
 			Created:   time.Now().AddDate(0, 0, -60),
 			LastLogin: time.Now(),
 			Timezone:  "UTC",
@@ -81,6 +89,7 @@ func (s *SimpleUserStore) GetUser(userID int64) (*api.User, error) {
 			Email:     "demo@example.com",
 			Clan:      "0001",
 			IsActive:  true,
+			IsAdmin:   false,
 			Created:   time.Now().AddDate(0, 0, -30),
 			LastLogin: time.Now(),
 			Timezone:  "UTC",
@@ -91,6 +100,7 @@ func (s *SimpleUserStore) GetUser(userID int64) (*api.User, error) {
 			Email:     "admin@example.com",
 			Clan:      "0000",
 			IsActive:  true,
+			IsAdmin:   true,   // Ensure admin status is set for GetUser
 			Created:   time.Now().AddDate(0, 0, -60),
 			LastLogin: time.Now(),
 			Timezone:  "UTC",
@@ -130,7 +140,7 @@ func (s *SimpleUserStore) CreateUser(email, password, clan, timezone string) (*a
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	log.Println("Starting ottobe API server")
+	log.Printf("Starting ottobe API server v%s", version.String())
 
 	// Parse command line flags
 	flag.StringVar(&databasePath, "database", "", "Path to the SQLite database")
@@ -138,7 +148,15 @@ func main() {
 	flag.StringVar(&host, "host", "localhost", "Host to serve on")
 	flag.StringVar(&port, "port", "29631", "Port to bind to")
 	flag.StringVar(&jwtKey, "jwt-key", "", "Secret key for JWT signing")
+	flag.BoolVar(&devMode, "dev", false, "Enable development mode (enables route logging and other debug features)")
+	flag.BoolVar(&showVersion, "version", false, "Show version information and exit")
 	flag.Parse()
+	
+	// Show version and exit if requested
+	if showVersion {
+		fmt.Printf("OttoApp Backend API Server v%s\n", version.String())
+		os.Exit(0)
+	}
 
 	// Generate random JWT key if not provided
 	if jwtKey == "" {
@@ -182,11 +200,43 @@ func main() {
 		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w, `{"status":"ok","time":"%s"}`, time.Now().Format(time.RFC3339))
 	})
+	
+	// Version endpoint
+	versionHandler := api.NewVersionHandler(version)
+	mux.HandleFunc("GET /api/version", versionHandler.GetVersion)
+
+	// Create debug handler
+	if devMode {
+		log.Println("Starting in development mode with route logging enabled")
+	}
+	loggingConfig := api.NewLoggingConfig(devMode)
+	debugHandler := &api.DebugHandler{
+		LoggingConfig: loggingConfig,
+	}
+
+	// Add debug routes - we'll add this manually after applying middleware
 
 	// Apply middlewares
 	jwtKeyBytes := []byte(jwtKey)
 	handler := api.CORSMiddleware("http://localhost:3000")(mux)
+	handler = api.LoggingMiddleware(loggingConfig)(handler)
 	handler = api.AuthMiddleware(jwtKeyBytes)(handler)
+	
+	// Add authorization check for admin routes
+	adminOnlyHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Check if user is admin
+		isAdmin, ok := r.Context().Value("isAdmin").(bool)
+		log.Printf("Admin route access: isAdmin=%v, ok=%v", isAdmin, ok)
+		if !ok || !isAdmin {
+			api.RespondWithError(w, http.StatusForbidden, "Admin access required")
+			return
+		}
+		// Call the debug handler if admin
+		debugHandler.ToggleRouteLogging(w, r)
+	})
+	
+	// Replace the debug route with the admin-protected version
+	mux.Handle("POST /api/admin/debug/log-all-routes", adminOnlyHandler)
 
 	// Create server
 	server := &http.Server{

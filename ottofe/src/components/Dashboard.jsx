@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { getUserData } from '@/api/data';
+import { toggleRouteLogging } from '@/api/admin';
 
 export default function Dashboard() {
   const { currentUser, token } = useAuth();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [loggingStatus, setLoggingStatus] = useState(null);
+  const [adminMessage, setAdminMessage] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -68,6 +71,40 @@ export default function Dashboard() {
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{userData.path}</dd>
               </div>
             </dl>
+          </div>
+        </div>
+      )}
+      
+      {currentUser?.isAdmin && (
+        <div className="bg-white shadow overflow-hidden sm:rounded-lg mt-8">
+          <div className="px-4 py-5 sm:px-6">
+            <h3 className="text-lg leading-6 font-medium text-gray-900">Admin Controls</h3>
+            <p className="mt-1 max-w-2xl text-sm text-gray-500">Debug and development options.</p>
+          </div>
+          <div className="border-t border-gray-200">
+            <div className="px-4 py-5">
+              <button 
+                onClick={async () => {
+                  try {
+                    setAdminMessage('');
+                    const result = await toggleRouteLogging(token);
+                    setLoggingStatus(result.logging);
+                    setAdminMessage(`Route logging ${result.logging}`);
+                  } catch (err) {
+                    setAdminMessage(`Error: ${err.message}`);
+                  }
+                }} 
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Toggle Route Logging
+              </button>
+              
+              {adminMessage && (
+                <div className="mt-3 text-sm text-indigo-600">
+                  {adminMessage}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

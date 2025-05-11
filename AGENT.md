@@ -3,6 +3,7 @@
 ## Commands
 - Build: `go build`
 - Run server: `./ottoapp serve --database /path/to/db --host localhost --port 29631`
+- Run backend API server: `cd ottobe && go build && ./ottobe --dev`
 - Build for Linux: `GOOS=linux GOARCH=amd64 go build -o ottoapp.exe`
 - Tests: `go test ./...`
 - Run single test: `go test -v ./path/to/package -run TestName`
